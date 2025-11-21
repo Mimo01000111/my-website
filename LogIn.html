@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Barangay 118 Online System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="LogIn.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo" id="home-logo" role="button" tabindex="0" aria-label="Barangay 118 Online System Home">
+                    <div class="logo-icon" aria-hidden="true"><i class="fas fa-city"></i></div>
+                    <h1 id="system-name">BARANGAY 118 ONLINE SYSTEM</h1>
+                </div>
+
+                <div class="nav-links" role="navigation" aria-label="Main navigation">
+                    <a href="index.html" aria-label="Home page"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+                    <a href="CreateAnAccount.html" aria-label="Create account page"><i class="fas fa-user-plus" aria-hidden="true"></i> Create an Account</a>
+                    <a href="AboutUs.html" aria-label="About us page"><i class="fas fa-info-circle" aria-hidden="true"></i> About Us</a>
+                    <a href="LogIn.html" class="active" aria-current="page"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 id="hero-title">Login to Your Account</h1>
+            <p id="hero-description">Enter your credentials to access the system.</p> 
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section id="login-section">
+        <div class="login-container">
+            <!-- Left Side - Welcome Message -->
+            <div class="login-left">
+                <div class="welcome-text">
+                    <h1 id="welcome-title">Welcome Back</h1>
+                    <p id="welcome-description">Access your barangay services and stay connected with your community through our secure online portal.</p>
+                </div>
+                
+                <div class="features" id="features-container">
+                    <!-- Features will be dynamically loaded here -->
+                </div>
+            </div>
+            
+            <!-- Right Side - Login Form -->
+            <div class="login-right">
+                <div class="login-header">
+                    <h2 class="login-title">Sign In</h2>
+                    <p class="login-subtitle">Enter your credentials to access your account</p>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email" class="required">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            placeholder="Enter your email address"
+                            required
+                        >
+                        <div class="error-message" id="email-error">Please enter a valid email address</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="required">Password</label>
+                        <div class="password-input-container">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                placeholder="Enter your password"
+                                required
+                            >
+                            <button type="button" class="password-toggle" id="togglePassword">Show</button>
+                        </div>
+                        <div class="error-message" id="password-error">Please enter your password</div>
+                    </div>
+                    
+                    <div class="remember-forgot">
+                        <div class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <label for="rememberMe">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn-login" id="loginBtn">
+                        Sign In
+                    </button>
+                </form>
+                
+                <div class="divider">
+                    <span>Don't have an account?</span>
+                </div>
+                
+                <a href="CreateAnAccount.html" class="btn-register">
+                    Create New Account
+                </a>
+                
+                <div class="login-help">
+                    <p>Need help signing in?</p>
+                    <div class="contact-info">
+                        <span>📞 Call us: <a href="tel:+021238567">(02) 8123-4567</a></span>
+                        <span>✉️ Email: <a href="mailto:info@barangay118.gov.ph">info@barangay118.gov.ph</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 id="footer-title">Barangay 118 Online System</h3>
+                    <p id="footer-description">Digital and efficient services for Barangay 118.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com" target="_blank" class="facebook" id="facebook-link">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="mailto:barangay118@gmail.com" class="gmail" id="email-link">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-5.318V11.73L12 16.64l-5.045-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul id="footer-contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>402 2nd St, Grace Park East, Caloocan</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-pin" aria-hidden="true"></i>
+                            <span>Metro Manila, Philippines</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone" aria-hidden="true"></i>
+                            <span>(02) 8123-4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                            <span>info@barangay118.gov.ph</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock" aria-hidden="true"></i>
+                            <span>Mon-Fri: 8:00 AM - 5:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p id="copyright-text">&copy; 2025 Barangay 118 Online System. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Database ng mga admin at user accounts
+        const accounts = [
+            // Admin accounts
+            { email: "superadmin@barangay118.gov.ph", password: "superadmin123", role: "super_admin", name: "Primary Administrator" },
+            { email: "superadmin2@barangay118.gov.ph", password: "superadmin123", role: "super_admin", name: "Chief Administrator" },
+            { email: "admin1@barangay118.gov.ph", password: "admin123", role: "admin", name: "Records Administrator" },
+            { email: "admin2@barangay118.gov.ph", password: "admin123", role: "admin", name: "Operations Administrator" },
+            { email: "admin3@barangay118.gov.ph", password: "admin123", role: "admin", name: "Logistics Administrator" },
+
+            // Male users
+            { email: "aranas.john@barangay118.gov.ph", password: "user123", role: "user", name: "John Aezer Fajardo ARANAS" },
+            { email: "badilla.carl@barangay118.gov.ph", password: "user123", role: "user", name: "Carl John Henry Smith BADILLA" },
+            { email: "catimbang.john@barangay118.gov.ph", password: "user123", role: "user", name: "John Mark Toledo CATIMBANG" },
+            { email: "galibo.gemanuel@barangay118.gov.ph", password: "user123", role: "user", name: "Gemanuel Pedoche GALIBO" },
+            { email: "honradez.zacchary@barangay118.gov.ph", password: "user123", role: "user", name: "Zacchary Angeles HONRADEZ" },
+            { email: "ortega.danny@barangay118.gov.ph", password: "user123", role: "user", name: "Danny King Mendoza ORTEGA" },
+            { email: "pozon.david@barangay118.gov.ph", password: "user123", role: "user", name: "David Bryant Peralta POZON" },
+            { email: "quindoza.mark@barangay118.gov.ph", password: "user123", role: "user", name: "Mark Raymond Sia QUINDOZA" },
+
+            // Female users
+            { email: "carlos.aaliyah@barangay118.gov.ph", password: "user123", role: "user", name: "Aaliyah Alyssa Nicole Macasanas CARLOS" }
+        ];
+
+        // Default content structure
+        const defaultLoginContent = {
+            heroTitle: "Login to Your Account",
+            heroDescription: "Enter your credentials to access the system.",
+            welcomeTitle: "Welcome Back",
+            welcomeDescription: "Access your barangay services and stay connected with your community through our secure online portal.",
+            features: [
+                { id: 1, text: "Quick document requests", icon: "✓", active: true },
+                { id: 2, text: "Request Processing Overview", icon: "✓", active: true },
+                { id: 3, text: "Community announcements", icon: "✓", active: true },
+                { id: 4, text: "Secure and private", icon: "✓", active: true }
+            ]
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            checkRememberedUser();
+            loadLoginContent();
+        });
+
+        // Load login page content from localStorage
+        function loadLoginContent() {
+            const savedContent = localStorage.getItem('loginPageContent');
+            const content = savedContent ? JSON.parse(savedContent) : defaultLoginContent;
+            
+            // Update hero section
+            document.getElementById('hero-title').textContent = content.heroTitle;
+            document.getElementById('hero-description').textContent = content.heroDescription;
+            
+            // Update welcome section
+            document.getElementById('welcome-title').textContent = content.welcomeTitle;
+            document.getElementById('welcome-description').textContent = content.welcomeDescription;
+            
+            // Update features
+            renderFeatures(content.features);
+        }
+
+        // Render features dynamically
+        function renderFeatures(features) {
+            const container = document.getElementById('features-container');
+            container.innerHTML = '';
+            
+            features.forEach(feature => {
+                if (feature.active) {
+                    const featureItem = document.createElement('div');
+                    featureItem.className = 'feature-item';
+                    featureItem.innerHTML = `
+                        <span class="feature-icon">${feature.icon}</span>
+                        <span>${feature.text}</span>
+                    `;
+                    container.appendChild(featureItem);
+                }
+            });
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Login form submission
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            
+            // Password visibility toggle
+            document.getElementById('togglePassword').addEventListener('click', togglePasswordVisibility);
+            
+            // Real-time validation
+            document.getElementById('email').addEventListener('input', validateEmail);
+            document.getElementById('password').addEventListener('input', validatePassword);
+            
+            // Home logo click
+            document.getElementById('home-logo').addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+        }
+
+        // Handle login form submission
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            // Validate form
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Show loading state
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.disabled = true;
+            loginBtn.classList.add('loading');
+            loginBtn.textContent = 'Signing In...';
+            
+            // Simulate API call (replace with actual API call)
+            setTimeout(() => {
+                // Check credentials against all accounts
+                const user = authenticateUser(email, password);
+                
+                if (user) {
+                    // Successful login
+                    if (rememberMe) {
+                        localStorage.setItem('rememberedEmail', email);
+                    } else {
+                        localStorage.removeItem('rememberedEmail');
+                    }
+                    
+                    // Store user session
+                    sessionStorage.setItem('userLoggedIn', 'true');
+                    sessionStorage.setItem('userEmail', email);
+                    sessionStorage.setItem('userRole', user.role);
+                    sessionStorage.setItem('userName', user.name);
+                    
+                    showToast('Login successful! Redirecting to dashboard...', 'success');
+                    
+                    // Redirect to appropriate dashboard based on role
+                    setTimeout(() => {
+                        redirectBasedOnRole(user.role);
+                    }, 2000);
+                    
+                } else {
+                    // Failed login
+                    loginBtn.disabled = false;
+                    loginBtn.classList.remove('loading');
+                    loginBtn.textContent = 'Sign In';
+                    
+                    showToast('Invalid email or password. Please try again.', 'error');
+                    document.getElementById('password-error').textContent = 'Invalid email or password';
+                    document.getElementById('password-error').style.display = 'block';
+                }
+            }, 1500);
+        }
+
+        // Authenticate user against all accounts
+        function authenticateUser(email, password) {
+            // Check against all accounts (admins and users)
+            const user = accounts.find(account => 
+                account.email === email && account.password === password
+            );
+            
+            return user || null;
+        }
+
+        // Redirect user based on their role
+        function redirectBasedOnRole(role) {
+            switch(role) {
+                case "super_admin":
+                case "admin":
+                    window.location.href = "LogAdminControl.html";
+                    break;
+                case "user":
+                default:
+                    window.location.href = "UserDashboard.html";
+                    break;
+            }
+        }
+
+        // Validate entire form
+        function validateForm() {
+            const emailValid = validateEmail();
+            const passwordValid = validatePassword();
+            
+            return emailValid && passwordValid;
+        }
+
+        // Validate email
+        function validateEmail() {
+            const email = document.getElementById('email').value.trim();
+            const emailError = document.getElementById('email-error');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!email) {
+                emailError.textContent = 'Please enter your email address';
+                emailError.style.display = 'block';
+                return false;
+            } else if (!emailRegex.test(email)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.style.display = 'block';
+                return false;
+            } else {
+                emailError.style.display = 'none';
+                return true;
+            }
+        }
+
+        // Validate password
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const passwordError = document.getElementById('password-error');
+            
+            if (!password) {
+                passwordError.textContent = 'Please enter your password';
+                passwordError.style.display = 'block';
+                return false;
+            } else if (password.length < 6) {
+                passwordError.textContent = 'Password must be at least 6 characters';
+                passwordError.style.display = 'block';
+                return false;
+            } else {
+                passwordError.style.display = 'none';
+                return true;
+            }
+        }
+
+        // Toggle password visibility
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.getElementById('togglePassword');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            toggleButton.textContent = type === 'password' ? 'Show' : 'Hide';
+        }
+
+        // Check for remembered user
+        function checkRememberedUser() {
+            const rememberedEmail = localStorage.getItem('rememberedEmail');
+            if (rememberedEmail) {
+                document.getElementById('email').value = rememberedEmail;
+                document.getElementById('rememberMe').checked = true;
+            }
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            // Remove existing toasts
+            const existingToasts = document.querySelectorAll('.toast');
+            existingToasts.forEach(toast => toast.remove());
+            
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+                toast.style.opacity = '1';
+            }, 10);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

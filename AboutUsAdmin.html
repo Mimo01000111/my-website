@@ -1,0 +1,2645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Control Panel - Barangay Online System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --light: #ffffff;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --gray-light: #f1f5f9;
+            --border: #cbd5e1;
+            --error: #dc2626;
+            --error-light: #fef2f2;
+            --success: #16a34a;
+            --success-light: #f0fdf4;
+            --warning: #d97706;
+            --accent: #f59e0b;
+            --accent-light: #fef3c7;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 6px 8px -1px rgba(0, 0, 0, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 95%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--light) 0%, #f8fafc 100%);
+            box-shadow: var(--shadow-lg);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        
+        .logo-icon {
+            color: var(--primary);
+            font-size: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 18px;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            position: relative;
+            border: 2px solid transparent;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+            background-color: var(--gray-light);
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.1));
+            border-color: var(--primary-light);
+            font-weight: 700;
+        }
+
+        /* Two Column Layout */
+        .admin-panel {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 0;
+            min-height: calc(100vh - 120px);
+        }
+        
+        .sidebar {
+            background: linear-gradient(180deg, var(--light) 0%, #f8fafc 100%);
+            box-shadow: var(--shadow-lg);
+            padding: 25px 0;
+            border-right: 1px solid var(--border);
+            position: sticky;
+            top: 120px;
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 0 25px 20px;
+            border-bottom: 2px solid var(--gray-light);
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: var(--gray);
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sidebar-menu a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .sidebar-menu a:hover::before {
+            left: 100%;
+        }
+        
+        .sidebar-menu a:hover {
+            background-color: var(--gray-light);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .sidebar-menu a.active {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(59, 130, 246, 0.1));
+            color: var(--primary);
+            border-left-color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .sidebar-icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar-menu a:hover .sidebar-icon {
+            transform: scale(1.2);
+        }
+        
+        .admin-content {
+            padding: 30px;
+            overflow-y: auto;
+            background: transparent;
+        }
+        
+        /* Section Styles */
+        .admin-section {
+            background: linear-gradient(135deg, var(--light) 0%, #f8fafc 100%);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .admin-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+        }
+        
+        .admin-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--dark);
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gray-light);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title i {
+            color: var(--primary);
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 15px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 15px;
+            transition: var(--transition);
+            background: var(--light);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* Button Styles */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-secondary {
+            background: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #15803d);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #b45309);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-warning:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--error), #b91c1c);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        /* Enhanced Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+            flex-wrap: nowrap;
+        }
+        
+        .btn-sm {
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: var(--light);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .data-table th {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .data-table tr:hover {
+            background-color: var(--gray-light);
+        }
+        
+        /* Dashboard Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--light), #f8fafc);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+       
+        .stat-label {
+            color: var(--gray);
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--gray-light);
+            margin-bottom: 25px;
+            background: var(--light);
+            border-radius: var(--radius) var(--radius) 0 0;
+            padding: 0 20px;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            font-weight: 600;
+            color: var(--gray);
+            position: relative;
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), transparent);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Alert Styles */
+        .alert {
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            margin-bottom: 25px;
+            border-left: 4px solid;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .alert-success {
+            background-color: var(--success-light);
+            color: var(--success);
+            border-left-color: var(--success);
+        }
+        
+        .alert-error {
+            background-color: var(--error-light);
+            color: var(--error);
+            border-left-color: var(--error);
+        }
+        
+        /* Image Preview */
+        .image-preview-container {
+            margin-top: 15px;
+        }
+        
+        .image-preview {
+            max-width: 300px;
+            max-height: 200px;
+            border-radius: var(--radius);
+            border: 2px solid var(--border);
+            display: none;
+            margin-top: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .image-preview.visible {
+            display: block;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Feature Badge */
+        .feature-badge {
+            background: linear-gradient(135deg, var(--accent), var(--warning));
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .feature-badge i {
+            font-size: 0.6rem;
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        /* Auto-save Status */
+        .save-status {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Edit Modal Styles */
+        .edit-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .edit-modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gray-light);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        /* Top Actions inside tab-content */
+        .tab-top-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px 0;
+            margin-bottom: 25px;
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        
+        .tab-top-actions a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gray-light);
+        }
+        
+        .tab-top-actions a:hover {
+            color: var(--primary);
+            background-color: var(--primary-light);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Quick Guide at bottom center */
+        .quick-guide-center {
+            background: linear-gradient(135deg, var(--light) 0%, #f8fafc 100%);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 25px;
+            margin-top: 30px;
+            border: 1px solid var(--border);
+        }
+        
+        .quick-guide-header {
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gray-light);
+            margin-bottom: 20px;
+        }
+        
+        .quick-guide-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .guide-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--gray-light);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .guide-section h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .guide-section p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .guide-section ul {
+            padding-left: 20px;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        .guide-section li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        /* Official, Committee, and Document Cards */
+        .official-card-admin, .committee-card-admin, .document-card-admin {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .official-card-admin h3, .committee-card-admin h3, .document-card-admin h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .official-actions {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-top: 10px;
+            border: 3px solid var(--primary-light);
+        }
+        
+        /* Help Text */
+        .help-text {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        /* Welcome Features */
+        .welcome-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, var(--light), #f8fafc);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .admin-panel {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 15px 0;
+            }
+            
+            .sidebar-menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 15px;
+            }
+            
+            .sidebar-menu li {
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+            
+            .sidebar-menu a {
+                border-left: none;
+                border-bottom: 3px solid transparent;
+                padding: 12px 20px;
+            }
+            
+            .sidebar-menu a.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--primary);
+            }
+            
+            .admin-content {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .nav-links {
+                gap: 5px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                padding: 12px 20px;
+                border-bottom: none;
+                border-left: 3px solid transparent;
+            }
+            
+            .tab.active {
+                border-bottom-color: transparent;
+                border-left-color: var(--primary);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-sm {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+
+            .tab-top-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .welcome-features {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .admin-content {
+                padding: 15px;
+            }
+            
+            .admin-section {
+                padding: 20px;
+            }
+            
+            .logo h1 {
+                font-size: 18px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .quick-guide-center {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo" onclick="window.open('PanelUserView.html', '_blank')">
+                    <div class="logo-icon"><i class="fas fa-cog"></i></div>
+                    <h1>BARANGAY ONLINE SYSTEM - ADMIN PANEL</h1>
+                </div>
+
+                <div class="nav-links">
+                    <a href="PanelAdminView.html">Panel-Page</a>
+                    <a href="CreateAccountAdmin.html">Create-Page</a>
+                    <a href="AboutUsAdmin.html" class="active">AboutUs-Page</a>
+                    <a href="LogAdminControl.html">Log-Page</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <!-- Left Sidebar - Control Center -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title"><i class="fas fa-cogs"></i> Control Center</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" data-tab="welcome"><span class="sidebar-icon"><i class="fas fa-home"></i></span> Dashboard</a></li>
+                <li><a href="#" data-tab="header"><span class="sidebar-icon"><i class="fas fa-heading"></i></span> Header & Hero</a></li>
+                <li><a href="#" data-tab="about"><span class="sidebar-icon"><i class="fas fa-info-circle"></i></span> About Barangay</a></li>
+                <li><a href="#" data-tab="mission"><span class="sidebar-icon"><i class="fas fa-bullseye"></i></span> Mission & Vision</a></li>
+                <li><a href="#" data-tab="officials"><span class="sidebar-icon"><i class="fas fa-users"></i></span> Barangay Officials</a></li>
+                <li><a href="#" data-tab="committees"><span class="sidebar-icon"><i class="fas fa-user-friends"></i></span> Committees</a></li>
+                <li><a href="#" data-tab="documents"><span class="sidebar-icon"><i class="fas fa-file-alt"></i></span> Document Requirements</a></li>
+                <li><a href="#" data-tab="location"><span class="sidebar-icon"><i class="fas fa-map-marker-alt"></i></span> Location</a></li>
+                <li><a href="#" data-tab="contact"><span class="sidebar-icon"><i class="fas fa-phone-alt"></i></span> Contact Information</a></li>
+                <li><a href="#" data-tab="footer"><span class="sidebar-icon"><i class="fas fa-sitemap"></i></span> Footer</a></li>
+            </ul>
+        </div>
+
+        <!-- Center Content -->
+        <div class="admin-content">
+            <!-- Top Action Buttons -->
+            <div class="tab-top-actions">
+                <a href="PanelUserView.html" target="_blank"><i class="fas fa-eye"></i> View Site</a>
+                <a href="#" id="save-all-btn"><i class="fas fa-save"></i> Save All</a>
+                <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+
+            <!-- Welcome/Dashboard Section -->
+            <div id="welcome" class="tab-content active">
+                <div class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-officials">0</div>
+                            <div class="stat-label">Total Officials</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-committees">0</div>
+                            <div class="stat-label">Active Committees</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-documents">0</div>
+                            <div class="stat-label">Document Types</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="system-status">OK</div>
+                            <div class="stat-label">System Status</div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-success">
+                        <strong><i class="fas fa-check-circle"></i> System Ready!</strong> Welcome to the Barangay Admin Control Panel. All changes are auto-saved.
+                    </div>
+                    
+                    <h3 style="margin-bottom: 15px; color: var(--dark);">Quick Actions</h3>
+                    <div class="quick-actions">
+                        <button class="btn btn-primary" id="preview-site-btn">
+                            <i class="fas fa-external-link-alt"></i> Preview Site
+                        </button>
+                        <button class="btn btn-success" id="add-official-quick">
+                            <i class="fas fa-user-plus"></i> Add Official
+                        </button>
+                        <button class="btn btn-warning" id="add-committee-quick">
+                            <i class="fas fa-users"></i> Add Committee
+                        </button>
+                        <button class="btn btn-secondary" id="export-data-btn">
+                            <i class="fas fa-download"></i> Export Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-history"></i> Recent Activity</h2>
+                    <div id="recent-activity">
+                        <p style="color: var(--gray); text-align: center; padding: 20px;">
+                            <i class="fas fa-clock"></i> Activity log will appear here...
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Guide -->
+                <div class="quick-guide-center">
+                    <div class="quick-guide-header">
+                        <h2 class="quick-guide-title"><i class="fas fa-book"></i> Quick Guide</h2>
+                    </div>
+                    
+                    <div id="welcome-guide" class="guide-section">
+                        <h4>Dashboard Overview</h4>
+                        <p>The dashboard provides a quick overview of your system's key metrics and recent activity.</p>
+                        <ul>
+                            <li>Monitor total officials, committees, and documents</li>
+                            <li>Track system status and recent activity</li>
+                            <li>Use quick actions for common tasks</li>
+                            <li>All changes are automatically saved</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header & Hero Section -->
+            <div id="header" class="tab-content">
+                <div class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-heading"></i> Header & Hero Section Management</h2>
+                    <p style="color: var(--gray); margin-bottom: 25px;">Update the main header and hero section that appears at the top of your About Us page.</p>
+                    
+                    <form id="header-form">
+                        <div class="form-group">
+                            <label class="form-label" for="site-title">Site Title</label>
+                            <input type="text" class="form-control" id="site-title" placeholder="Enter site title">
+                            <small class="help-text">This appears in the header navigation</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="page-hero-title">Page Hero Title</label>
+                            <input type="text" class="form-control" id="page-hero-title" placeholder="Enter page hero title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="page-hero-subtitle">Page Hero Subtitle</label>
+                            <textarea class="form-control" id="page-hero-subtitle" placeholder="Enter page hero subtitle"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update Header & Hero
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Quick Guide -->
+                <div class="quick-guide-center">
+                    <div class="quick-guide-header">
+                        <h2 class="quick-guide-title"><i class="fas fa-book"></i> Quick Guide</h2>
+                    </div>
+                    
+                    <div id="header-guide" class="guide-section">
+                        <h4>Header & Hero Section</h4>
+                        <p>Customize the main header and hero section of your About Us page.</p>
+                        <ul>
+                            <li>Update the site title in the header</li>
+                            <li>Modify the hero title and subtitle</li>
+                            <li>Changes appear immediately on the main site</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Barangay Section -->
+            <div id="about" class="tab-content">
+                <div class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-info-circle"></i> About Barangay Section</h2>
+                    <p style="color: var(--gray); margin-bottom: 25px;">Tell the story of your barangay and upload an image of your barangay hall or community.</p>
+                    
+                    <form id="about-form">
+                        <div class="form-group">
+                            <label class="form-label" for="about-section-title">Section Title</label>
+                            <input type="text" class="form-control" id="about-section-title" placeholder="Enter section title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="about-story-title">Story Title</label>
+                            <input type="text" class="form-control" id="about-story-title" placeholder="Enter story title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="about-story-para1">Story Paragraph 1</label>
+                            <textarea class="form-control" id="about-story-para1" placeholder="Enter first paragraph"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="about-story-para2">Story Paragraph 2</label>
+                            <textarea class="form-control" id="about-story-para2" placeholder="Enter second paragraph"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="about-story-para3">Story Paragraph 3</label>
+                            <textarea class="form-control" id="about-story-para3" placeholder="Enter third paragraph"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="about-barangay-image">Barangay Image URL</label>
+                            <input type="text" class="form-control" id="about-barangay-image" placeholder="https://example.com/barangay-image.jpg">
+                            <small class="help-text">Enter direct URL to high-quality barangay image</small>
+                            <div class="image-preview-container">
+                                <img id="about-barangay-image-preview" class="image-preview" alt="Barangay image preview">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update About Section
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Quick Guide -->
+                <div class="quick-guide-center">
+                    <div class="quick-guide-header">
+                        <h2 class="quick-guide-title"><i class="fas fa-book"></i> Quick Guide</h2>
+                    </div>
+                    
+                    <div id="about-guide" class="guide-section">
+                        <h4>About Barangay Section</h4>
+                        <p>Customize the about section with your barangay's story and image.</p>
+                        <ul>
+                            <li>Update the section title and story title</li>
+                            <li>Modify the story paragraphs</li>
+                            <li>Add a barangay hall or community image</li>
+                            <li>Preview images before saving</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission & Vision Section -->
+            <div id="mission" class="tab-content">
+                <div class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-bullseye"></i> Mission & Vision Section</h2>
+                    <p style="color: var(--gray); margin-bottom: 25px;">Define your barangay's mission and vision statements.</p>
+                    
+                    <form id="mission-form">
+                        <div class="form-group">
+                            <label class="form-label" for="mission-vision-title">Section Title</label>
+                            <input type="text" class="form-control" id="mission-vision-title" placeholder="Enter section title">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="mission-title">Mission Title</label>
+                                <input type="text" class="form-control" id="mission-title" placeholder="Enter mission title">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="vision-title">Vision Title</label>
+                                <input type="text" class="form-control" id="vision-title" placeholder="Enter vision title">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="mission-text">Mission Text</label>
+                                <textarea class="form-control" id="mission-text" placeholder="Enter mission statement"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="vision-text">Vision Text</label>
+                                <textarea class="form-control" id="vision-text" placeholder="Enter vision statement"></textarea>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update Mission & Vision
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Quick Guide -->
+                <div class="quick-guide-center">
+                    <div class="quick-guide-header">
+                        <h2 class="quick-guide-title"><i class="fas fa-book"></i> Quick Guide</h2>
+                    </div>
+                    
+                    <div id="mission-guide" class="guide-section">
+                        <h4>Mission & Vision Section</h4>
+                        <p>Define your barangay's mission and vision statements.</p>
+                        <ul>
+                            <li>Update the section title</li>
+                            <li>Modify mission and vision titles</li>
+                            <li>Edit mission and vision statements</li>
+                            <li>Keep statements concise and impactful</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barangay Officials Section -->
+            <div id="officials" class="tab-content">
+                <div class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-users"></i> Barangay Officials Section</h2>
+                    <p style="color: var(--gray); margin-bottom: 25px;">Manage the list of barangay officials. You can add, edit, or remove officials as needed.</p>
+                    
+                    <div class="tabs">
+                        <div class="tab active" data-official-tab="existing">👥 Existing Officials</div>
+                        <div class="tab" data-official-tab="add">➕ Add New Official</div>
+                    </div>
+                    
+                    <!-- Existing Officials -->
+                    <div id="existing-officials" class="tab-content active">
+                        <div class="alert alert-success">
+                            <strong><i class="fas fa-info-circle"></i> Pro Tip:</strong> Click on any official to edit their details.
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Avatar</th>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Contact</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="officials-table-body">
+                                <!-- Officials will be loaded here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Add Official -->
+                    <div id="add-official" class="tab-content">
+                        <form id="official-form">
+                            <input type="hidden" id="official-edit-id" value="">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="official-name">Name *</label>
+                                    <input type="text" class="form-control" id="official-name" placeholder="Enter official name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="official-position">Position *</label>
+                                    <input type="text" class="form-control" id="official-position" placeholder="Enter official position" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="official-contact">Contact Information</label>
+                                <input type="text" class="form-control" id="official-contact" placeholder="Enter contact details">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="official-avatar">Profile Image URL</label>
+                                <input type="text" class="form-control" id="official-avatar" placeholder="https://example.com/avatar.jpg">
+                                <small class="help-text">Enter direct URL to profile image (recommended size: 100x100 pixels)</small>
+                                <div class="image-preview-container">
+                                    <img id="official-avatar-preview" class="avatar-preview" alt="Official avatar preview">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-success" id="official-submit-btn">
+                                <i class="fas fa-plus-circle"></i> Add Official
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="official-cancel-edit" style="display: none;">
+                                <i class="fas fa-times"></i> Cancel Edit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Quick Guide -->
+                <div class="quick-guide-center">
+                    <div class="quick-guide-header">
+                        <h2 class="quick-guide-title"><i class="fas fa-book"></i> Quick Guide</h2>
+                    </div>
+                    
+                    <div id="officials-guide" class="guide-section">
+                        <h4>Barangay Officials Management</h4>
+                        <p>Manage all barangay officials and their information.</p>
+                        <ul>
+                            <li>Add, edit, and delete officials</li>
+                            <li>Upload profile images for each official</li>
+                            <li>Include contact information</li>
+                            <li>Changes appear on the About Us page</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Committees Section -->
+            <div id="committees" class="tab-content">
+                <div class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-user-friends"></i> Committees Section</h2>
+                    <p style="color: var(--gray); margin-bottom: 25px;">Manage the different committees in your barangay and their members.</p>
+                    
+                    <div class="tabs">
+                        <div class="tab active" data-committee-tab="existing">🛡️ Existing Committees</div>
+                        <div class="tab" data-committee-tab="add">➕ Add New Committee</div>
+                    </div>
+                    
+                    <!-- Existing Committees -->
+                    <div id="existing-committees" class="tab-content active">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Members</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="committees-table-body">
+                                <!-- Committees will be loaded here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Add Committee -->
+                    <div id="add-committee" class="tab-content">
+                        <form id="committee-form">
+                            <input type="hidden" id="committee-edit-id" value="">
+                            <div class="form-group">
+                                <label class="form-label" for="committee-title">Committee Title *</label>
+                                <input type="text" class="form-control" id="committee-title" placeholder="Enter committee title" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="committee-members">Committee Members</label>
+                                <textarea class="form-control" id="committee-members" placeholder="Enter committee members (one per line)"></textarea>
+                                <small class="help-text">Each line will become a separate member entry</small>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-success" id="committee-submit-btn">
+                                <i class="fas fa-plus-circle"></i> Add Committee
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="committee-cancel-edit" style="display: none;">
+                                <i class="fas fa-times"></i> Cancel Edit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Quick Guide -->
+                <div class="quick-guide-center">
+                    <div class="quick-guide-header">
+                        <h2 class="quick-guide-title"><i class="fas fa-book"></i> Quick Guide</h2>
+                    </div>
+                    
+                    <div id="committees-guide" class="guide-section">
+                        <h4>Committees Management</h4>
+                        <p>Manage barangay committees and their members.</p>
+                        <ul>
+                            <li>Add, edit, and delete committees</li>
+                            <li>List committee members</li>
+                            <li>Organize by committee functions</li>
+                            <li>Keep information up-to-date</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Document Requirements Section -->
+            <div id="documents" class="tab-content">
+                <div class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-file-alt"></i> Document Requirements Section</h2>
+                    <p style="color: var(--gray); margin-bottom: 25px;">List the documents residents can request and their requirements.</p>
+                    
+                    <div class="tabs">
+                        <div class="tab active" data-document-tab="existing">📄 Existing Documents</div>
+                        <div class="tab" data-document-tab="add">➕ Add New Document</div>
+                    </div>
+                    
+                    <!-- Existing Documents -->
+                    <div id="existing-documents" class="tab-content active">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Requirements</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="documents-table-body">
+                                <!-- Documents will be loaded here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Add Document -->
+                    <div id="add-document" class="tab-content">
+                        <form id="document-form">
+                            <input type="hidden" id="document-edit-id" value="">
+                            <div class="form-group">
+                                <label class="form-label" for="document-title">Document Title *</label>
+                                <input type="text" class="form-control" id="document-title" placeholder="Enter document title" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="document-description">Document Description</label>
+                                <textarea class="form-control" id="document-description" placeholder="Describe the document purpose"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="document-requirements">Requirements</label>
+                                <textarea class="form-control" id="document-requirements" placeholder="Enter requirements (one per line)"></textarea>
+                                <small class="help-text">Each line will become a separate requirement</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="document-fee">Processing Fee</label>
+                                <input type="text" class="form-control" id="document-fee" placeholder="Enter processing fee (if any)">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-success" id="document-submit-btn">
+                                <i class="fas fa-plus-circle"></i> Add Document
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="document-cancel-edit" style="display: none;">
+                                <i class="fas fa-times"></i> Cancel Edit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Quick Guide -->
+                <div class="quick-guide-center">
+                    <div class="quick-guide-header">
+                        <h2 class="quick-guide-title"><i class="fas fa-book"></i> Quick Guide</h2>
+                    </div>
+                    
+                    <div id="documents-guide" class="guide-section">
+                        <h4>Document Requirements Management</h4>
+                        <p>Manage document requirements and information.</p>
+                        <ul>
+                            <li>Add, edit, and delete document types</li>
+                            <li>Include descriptions and requirements</li>
+                            <li>Specify processing fees if applicable</li>
+                            <li>Keep information accurate and up-to-date</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location Section -->
+            <div id="location" class="tab-content">
+                <div class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Location Section</h2>
+                    <p style="color: var(--gray); margin-bottom: 25px;">Provide information about your barangay's location.</p>
+                    
+                    <form id="location-form">
+                        <div class="form-group">
+                            <label class="form-label" for="location-title">Section Title</label>
+                            <input type="text" class="form-control" id="location-title" placeholder="Enter section title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="location-subtitle">Section Subtitle</label>
+                            <input type="text" class="form-control" id="location-subtitle" placeholder="Enter section subtitle">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="map-description">Map Description</label>
+                            <input type="text" class="form-control" id="map-description" placeholder="Enter map description">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="map-address">Map Address</label>
+                            <input type="text" class="form-control" id="map-address" placeholder="Enter map address">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update Location Section
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Quick Guide -->
+                <div class="quick-guide-center">
+                    <div class="quick-guide-header">
+                        <h2 class="quick-guide-title"><i class="fas fa-book"></i> Quick Guide</h2>
+                    </div>
+                    
+                    <div id="location-guide" class="guide-section">
+                        <h4>Location Section</h4>
+                        <p>Provide information about your barangay's location.</p>
+                        <ul>
+                            <li>Update section title and subtitle</li>
+                            <li>Modify map description</li>
+                            <li>Update barangay address</li>
+                            <li>Changes appear on the About Us page</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information Section -->
+            <div id="contact" class="tab-content">
+                <div class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-phone-alt"></i> Contact Information</h2>
+                    <p style="color: var(--gray); margin-bottom: 25px;">Update your barangay's contact details.</p>
+                    
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label class="form-label" for="contact-title">Section Title</label>
+                            <input type="text" class="form-control" id="contact-title" placeholder="Enter section title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="contact-location-address">Location Address</label>
+                            <input type="text" class="form-control" id="contact-location-address" placeholder="Enter location address">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="contact-email-address">Email Address</label>
+                            <input type="text" class="form-control" id="contact-email-address" placeholder="Enter email address">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="contact-phone-number">Phone Number</label>
+                            <input type="text" class="form-control" id="contact-phone-number" placeholder="Enter phone number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="map-link-text">Map Link Text</label>
+                            <input type="text" class="form-control" id="map-link-text" placeholder="Enter map link text">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update Contact Information
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Quick Guide -->
+                <div class="quick-guide-center">
+                    <div class="quick-guide-header">
+                        <h2 class="quick-guide-title"><i class="fas fa-book"></i> Quick Guide</h2>
+                    </div>
+                    
+                    <div id="contact-guide" class="guide-section">
+                        <h4>Contact Information</h4>
+                        <p>Update your barangay's contact details.</p>
+                        <ul>
+                            <li>Update section title</li>
+                            <li>Modify location address</li>
+                            <li>Update email and phone number</li>
+                            <li>Customize map link text</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Section -->
+            <div id="footer" class="tab-content">
+                <div class="admin-section">
+                    <h2 class="section-title"><i class="fas fa-sitemap"></i> Footer Section</h2>
+                    <p style="color: var(--gray); margin-bottom: 25px;">Update the footer information that appears at the bottom of every page.</p>
+                    
+                    <form id="footer-form">
+                        <div class="form-group">
+                            <label class="form-label" for="footer-title">Footer Title</label>
+                            <input type="text" class="form-control" id="footer-title" placeholder="Enter footer title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="footer-description">Footer Description</label>
+                            <textarea class="form-control" id="footer-description" placeholder="Enter footer description"></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="facebook-url">Facebook URL</label>
+                                <input type="text" class="form-control" id="facebook-url" placeholder="https://facebook.com/yourpage">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="email-address">Email Address</label>
+                                <input type="email" class="form-control" id="email-address" placeholder="barangay@email.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="contact-info">Contact Information</label>
+                            <textarea class="form-control" id="contact-info" placeholder="Enter contact details (one per line)"></textarea>
+                            <small class="help-text">Each line will become a separate contact item</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="copyright-text">Copyright Text</label>
+                            <input type="text" class="form-control" id="copyright-text" placeholder="Enter copyright text">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update Footer
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Quick Guide -->
+                <div class="quick-guide-center">
+                    <div class="quick-guide-header">
+                        <h2 class="quick-guide-title"><i class="fas fa-book"></i> Quick Guide</h2>
+                    </div>
+                    
+                    <div id="footer-guide" class="guide-section">
+                        <h4>Footer Section</h4>
+                        <p>Customize the footer section and contact information.</p>
+                        <ul>
+                            <li>Update footer title and description</li>
+                            <li>Add Facebook page URL</li>
+                            <li>Include email address for contact</li>
+                            <li>Update copyright information</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auto-save Status Indicator -->
+    <div id="save-status" class="save-status">Auto-save: ON</div>
+
+<script>
+    // Enhanced Admin Panel for About Us Page with Pre-loaded Data
+    class AboutUsAdminPanel {
+        constructor() {
+            this.currentData = null;
+            this.autoSaveEnabled = true;
+            this.saveTimeout = null;
+            this.activityLog = [];
+            this.init();
+        }
+
+        init() {
+            this.loadData();
+            this.setupEventListeners();
+            this.updateDashboard();
+            this.renderOfficialsTable();
+            this.renderCommitteesTable();
+            this.renderDocumentsTable();
+            this.logActivity('System initialized with pre-loaded data', 'success');
+            this.updateSaveStatus();
+        }
+
+        getDefaultData() {
+            return {
+                systemName: "BARANGAY ONLINE SYSTEM",
+                header: {
+                    'site-title': 'BARANGAY ONLINE SYSTEM',
+                    'page-hero-title': 'About Us',
+                    'page-hero-subtitle': 'Learn about our community, mission, and dedicated public servants.'
+                },
+                about: {
+                    'about-section-title': 'About Our Barangay',
+                    'about-story-title': 'Our Community Story',
+                    'about-story-para1': 'Barangay 73 has been serving the community for over 30 years, dedicated to providing efficient and accessible government services to our residents. Our barangay is located in the heart of the city, serving a diverse population of families, businesses, and institutions.',
+                    'about-story-para2': 'With the launch of our Online System, we\'re taking our commitment to the next level by making our services available 24/7 from the comfort of your home. Our digital transformation initiative aims to bridge the gap between the barangay administration and the community we serve.',
+                    'about-story-para3': 'Our team of dedicated officials and staff work tirelessly to ensure that every resident receives the assistance they need with integrity, transparency, and compassion.',
+                    'about-barangay-image': 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\' viewBox=\'0 0 400 300\'%3E%3Crect width=\'400\' height=\'300\' fill=\'%234a76c2\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'18\' text-anchor=\'middle\' fill=\'white\' font-family=\'Arial\'%3EBarangay Hall Image%3C/text%3E%3C/svg%3E'
+                },
+                mission: {
+                    'mission-vision-title': 'Our Mission & Vision',
+                    'mission-title': 'Our Mission',
+                    'mission-text': 'To provide efficient, transparent, and accessible government services to all residents through innovative digital solutions, fostering a connected and empowered community.',
+                    'vision-title': 'Our Vision',
+                    'vision-text': 'To be a model barangay known for excellent public service, community engagement, and technological innovation that improves the quality of life for all residents.'
+                },
+                officials: {
+                    'officials-title': 'Barangay Officials',
+                    'officials-subtitle': 'Meet the dedicated team serving our community',
+                    'officials-list': [
+                        {
+                            id: 1,
+                            name: 'Juan M. Dela Cruz',
+                            position: 'Punong Barangay',
+                            contact: 'Contact: (02) 8123-4567',
+                            avatar: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231a3d7a\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\' dy=\'.3em\' font-family=\'Arial\'%3EJM%3C/text%3E%3C/svg%3E'
+                        },
+                        {
+                            id: 2,
+                            name: 'Maria L. Santos',
+                            position: 'Barangay Secretary',
+                            contact: 'Contact: (02) 8123-4568',
+                            avatar: 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%231a3d7a\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' font-size=\'40\' text-anchor=\'middle\' fill=\'white\' dy=\'.3em\' font-family=\'Arial\'%3EMS%3C/text%3E%3C/svg%3E'
+                        }
+                    ]
+                },
+                committees: {
+                    'committees-title': 'Barangay Committees',
+                    'committees-subtitle': 'Our specialized committees addressing various community needs',
+                    'committees-list': [
+                        {
+                            id: 1,
+                            title: 'Peace and Order',
+                            members: 'Juan M. Dela Cruz (Chairperson)\nTanod Members (Members)'
+                        },
+                        {
+                            id: 2,
+                            title: 'Environmental Protection',
+                            members: 'Maria L. Santos (Chairperson)\nRoberto G. Reyes (Member)'
+                        }
+                    ]
+                },
+                documents: {
+                    'documents-title': 'Document Requirements',
+                    'documents-subtitle': 'Information about the documents you can request and their requirements',
+                    'documents-list': [
+                        {
+                            id: 1,
+                            title: 'Barangay Clearance',
+                            description: 'Official document certifying that you are a resident of good standing in the barangay, often required for employment, business permits, and other transactions.',
+                            requirements: 'Valid ID (any government-issued)\nProof of residency (utility bill, lease agreement)\nCommunity Tax Certificate (if applicable)\nFully filled application form',
+                            fee: '₱50.00'
+                        }
+                    ]
+                },
+                location: {
+                    'location-title': 'Barangay Location',
+                    'location-subtitle': 'Find our barangay hall and important facilities',
+                    'map-description': 'Interactive Barangay Map',
+                    'map-address': 'Barangay 73 Hall, City Proper, Metro Manila'
+                },
+                contact: {
+                    'contact-title': 'Get In Touch',
+                    'contact-location-address': 'Caloocan City, Philippines',
+                    'contact-email-address': 'contact@spcc.edu.ph',
+                    'contact-phone-number': '(02) 8281-8888',
+                    'map-link-text': 'View Map'
+                },
+                footer: {
+                    'footer-title': 'Barangay Online System',
+                    'footer-description': 'Providing efficient and accessible government services to our community members.',
+                    'footer-address': 'Barangay 73 Hall, City Proper',
+                    'footer-city': 'Metro Manila, Philippines',
+                    'footer-phone': '(02) 8123-4567',
+                    'footer-email': 'info@barangay73.gov.ph',
+                    'copyright-text': '&copy; 2025 Barangay Online System. All Rights Reserved.',
+                    'contact-info': 'Barangay 73 Hall, City Proper\nMetro Manila, Philippines\n(02) 8123-4567\ninfo@barangay73.gov.ph\nMon-Fri: 8:00 AM - 5:00 PM',
+                    'socialMedia': {
+                        facebook: 'https://www.facebook.com',
+                        email: 'mailto:barangay118@gmail.com'
+                    }
+                },
+                welcome: {
+                    'welcome-title': 'Welcome to the Admin Control Panel',
+                    'welcome-description': 'Manage all content on the "About Us" page with this intuitive control panel. Select a section from the sidebar to begin editing.'
+                }
+            };
+        }
+
+        loadData() {
+            // Try to load from localStorage
+            const savedData = localStorage.getItem('aboutUsData');
+            if (savedData) {
+                this.currentData = JSON.parse(savedData);
+                console.log('✅ Data loaded from localStorage');
+            } else {
+                // Use pre-loaded default data
+                this.currentData = this.getDefaultData();
+                this.saveData();
+                console.log('📝 Using pre-loaded data');
+            }
+            
+            this.populateForms();
+        }
+
+        saveData() {
+            // Save to localStorage
+            localStorage.setItem('aboutUsData', JSON.stringify(this.currentData));
+            
+            this.updateDashboard();
+            this.updateSaveStatus();
+            this.logActivity('Data saved successfully', 'success');
+        }
+
+        scheduleAutoSave() {
+            if (this.saveTimeout) {
+                clearTimeout(this.saveTimeout);
+            }
+            
+            this.saveTimeout = setTimeout(() => {
+                this.saveData();
+                this.showAlert('Changes saved automatically', 'success');
+            }, 1000);
+        }
+
+        populateForms() {
+            if (!this.currentData) return;
+
+            // Welcome section
+            document.getElementById('welcome-title').value = this.currentData.welcome?.['welcome-title'] || '';
+            document.getElementById('welcome-description').value = this.currentData.welcome?.['welcome-description'] || '';
+            
+            // Header section
+            document.getElementById('site-title').value = this.currentData.header?.['site-title'] || '';
+            document.getElementById('page-hero-title').value = this.currentData.header?.['page-hero-title'] || '';
+            document.getElementById('page-hero-subtitle').value = this.currentData.header?.['page-hero-subtitle'] || '';
+            
+            // About section
+            document.getElementById('about-section-title').value = this.currentData.about?.['about-section-title'] || '';
+            document.getElementById('about-story-title').value = this.currentData.about?.['about-story-title'] || '';
+            document.getElementById('about-story-para1').value = this.currentData.about?.['about-story-para1'] || '';
+            document.getElementById('about-story-para2').value = this.currentData.about?.['about-story-para2'] || '';
+            document.getElementById('about-story-para3').value = this.currentData.about?.['about-story-para3'] || '';
+            document.getElementById('about-barangay-image').value = this.currentData.about?.['about-barangay-image'] || '';
+            
+            // Mission section
+            document.getElementById('mission-vision-title').value = this.currentData.mission?.['mission-vision-title'] || '';
+            document.getElementById('mission-title').value = this.currentData.mission?.['mission-title'] || '';
+            document.getElementById('mission-text').value = this.currentData.mission?.['mission-text'] || '';
+            document.getElementById('vision-title').value = this.currentData.mission?.['vision-title'] || '';
+            document.getElementById('vision-text').value = this.currentData.mission?.['vision-text'] || '';
+            
+            // Officials section
+            document.getElementById('officials-title').value = this.currentData.officials?.['officials-title'] || '';
+            document.getElementById('officials-subtitle').value = this.currentData.officials?.['officials-subtitle'] || '';
+            
+            // Committees section
+            document.getElementById('committees-title').value = this.currentData.committees?.['committees-title'] || '';
+            document.getElementById('committees-subtitle').value = this.currentData.committees?.['committees-subtitle'] || '';
+            
+            // Documents section
+            document.getElementById('documents-title').value = this.currentData.documents?.['documents-title'] || '';
+            document.getElementById('documents-subtitle').value = this.currentData.documents?.['documents-subtitle'] || '';
+            
+            // Location section
+            document.getElementById('location-title').value = this.currentData.location?.['location-title'] || '';
+            document.getElementById('location-subtitle').value = this.currentData.location?.['location-subtitle'] || '';
+            document.getElementById('map-description').value = this.currentData.location?.['map-description'] || '';
+            document.getElementById('map-address').value = this.currentData.location?.['map-address'] || '';
+            
+            // Contact section
+            document.getElementById('contact-title').value = this.currentData.contact?.['contact-title'] || '';
+            document.getElementById('contact-location-address').value = this.currentData.contact?.['contact-location-address'] || '';
+            document.getElementById('contact-email-address').value = this.currentData.contact?.['contact-email-address'] || '';
+            document.getElementById('contact-phone-number').value = this.currentData.contact?.['contact-phone-number'] || '';
+            document.getElementById('map-link-text').value = this.currentData.contact?.['map-link-text'] || '';
+            
+            // Footer section
+            document.getElementById('footer-title').value = this.currentData.footer?.['footer-title'] || '';
+            document.getElementById('footer-description').value = this.currentData.footer?.['footer-description'] || '';
+            document.getElementById('facebook-url').value = this.currentData.footer?.socialMedia?.facebook || '';
+            document.getElementById('email-address').value = this.currentData.footer?.socialMedia?.email ? this.currentData.footer.socialMedia.email.replace('mailto:', '') : '';
+            document.getElementById('contact-info').value = this.currentData.footer?.['contact-info'] || '';
+            document.getElementById('copyright-text').value = this.currentData.footer?.['copyright-text'] || '';
+
+            // Update image previews
+            this.updateImagePreviews();
+        }
+
+        updateImagePreviews() {
+            const aboutPreview = document.getElementById('about-barangay-image-preview');
+            const officialPreview = document.getElementById('official-avatar-preview');
+
+            if (this.currentData.about?.['about-barangay-image']) {
+                aboutPreview.src = this.currentData.about['about-barangay-image'];
+                aboutPreview.classList.add('visible');
+            }
+
+            // Update official avatars in the table
+            this.renderOfficialsTable();
+        }
+
+        setupEventListeners() {
+            // Sidebar navigation
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tabId = link.getAttribute('data-tab');
+                    this.switchTab(tabId);
+                    this.updateQuickGuide(tabId);
+                });
+            });
+
+            // Official tabs
+            document.querySelectorAll('[data-official-tab]').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    this.switchOfficialTab(tab.getAttribute('data-official-tab'));
+                });
+            });
+
+            // Committee tabs
+            document.querySelectorAll('[data-committee-tab]').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    this.switchCommitteeTab(tab.getAttribute('data-committee-tab'));
+                });
+            });
+
+            // Document tabs
+            document.querySelectorAll('[data-document-tab]').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    this.switchDocumentTab(tab.getAttribute('data-document-tab'));
+                });
+            });
+
+            // Form submissions with auto-save
+            this.setupFormListeners();
+
+            // Quick action buttons
+            document.getElementById('preview-site-btn').addEventListener('click', () => {
+                window.open('AboutUs.html', '_blank');
+            });
+
+            document.getElementById('add-official-quick').addEventListener('click', () => {
+                this.switchTab('officials');
+                this.switchOfficialTab('add');
+                this.updateQuickGuide('officials');
+            });
+
+            document.getElementById('add-committee-quick').addEventListener('click', () => {
+                this.switchTab('committees');
+                this.switchCommitteeTab('add');
+                this.updateQuickGuide('committees');
+            });
+
+            document.getElementById('export-data-btn').addEventListener('click', () => {
+                this.exportData();
+            });
+
+            document.getElementById('save-all-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                this.saveData();
+                this.showAlert('All changes saved successfully!', 'success');
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                if (confirm('Are you sure you want to logout?')) {
+                    window.location.href = 'LogIn.html';
+                }
+            });
+
+            // Image preview handlers
+            document.getElementById('about-barangay-image').addEventListener('input', (e) => {
+                this.updateImagePreview('about-barangay-image-preview', e.target.value);
+            });
+
+            document.getElementById('official-avatar').addEventListener('input', (e) => {
+                this.updateImagePreview('official-avatar-preview', e.target.value);
+            });
+        }
+
+        setupFormListeners() {
+            // Welcome Form
+            document.getElementById('welcome-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.currentData.welcome['welcome-title'] = document.getElementById('welcome-title').value;
+                this.currentData.welcome['welcome-description'] = document.getElementById('welcome-description').value;
+                this.scheduleAutoSave();
+                this.showAlert('Welcome section updated successfully!', 'success');
+                this.logActivity('Welcome section updated', 'success');
+            });
+
+            // Header Form
+            document.getElementById('header-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.currentData.header['site-title'] = document.getElementById('site-title').value;
+                this.currentData.header['page-hero-title'] = document.getElementById('page-hero-title').value;
+                this.currentData.header['page-hero-subtitle'] = document.getElementById('page-hero-subtitle').value;
+                this.scheduleAutoSave();
+                this.showAlert('Header section updated successfully!', 'success');
+                this.logActivity('Header section updated', 'success');
+            });
+
+            // About Form
+            document.getElementById('about-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.currentData.about['about-section-title'] = document.getElementById('about-section-title').value;
+                this.currentData.about['about-story-title'] = document.getElementById('about-story-title').value;
+                this.currentData.about['about-story-para1'] = document.getElementById('about-story-para1').value;
+                this.currentData.about['about-story-para2'] = document.getElementById('about-story-para2').value;
+                this.currentData.about['about-story-para3'] = document.getElementById('about-story-para3').value;
+                this.currentData.about['about-barangay-image'] = document.getElementById('about-barangay-image').value;
+                this.scheduleAutoSave();
+                this.showAlert('About section updated successfully!', 'success');
+                this.logActivity('About section updated', 'success');
+            });
+
+            // Mission Form
+            document.getElementById('mission-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.currentData.mission['mission-vision-title'] = document.getElementById('mission-vision-title').value;
+                this.currentData.mission['mission-title'] = document.getElementById('mission-title').value;
+                this.currentData.mission['mission-text'] = document.getElementById('mission-text').value;
+                this.currentData.mission['vision-title'] = document.getElementById('vision-title').value;
+                this.currentData.mission['vision-text'] = document.getElementById('vision-text').value;
+                this.scheduleAutoSave();
+                this.showAlert('Mission & Vision updated successfully!', 'success');
+                this.logActivity('Mission & Vision updated', 'success');
+            });
+
+            // Official Form - Updated to handle both add and edit
+            document.getElementById('official-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const editId = document.getElementById('official-edit-id').value;
+                const isEditing = editId !== '';
+                
+                const officialData = {
+                    id: isEditing ? parseInt(editId) : (this.currentData.officials['officials-list'].length > 0 ? Math.max(...this.currentData.officials['officials-list'].map(o => o.id)) + 1 : 1),
+                    name: document.getElementById('official-name').value,
+                    position: document.getElementById('official-position').value,
+                    contact: document.getElementById('official-contact').value,
+                    avatar: document.getElementById('official-avatar').value
+                };
+
+                if (isEditing) {
+                    // Update existing official
+                    const index = this.currentData.officials['officials-list'].findIndex(o => o.id == editId);
+                    if (index !== -1) {
+                        this.currentData.officials['officials-list'][index] = officialData;
+                    }
+                    this.logActivity(`Official updated: "${officialData.name}"`, 'success');
+                    this.showAlert('Official updated successfully!', 'success');
+                } else {
+                    // Add new official
+                    this.currentData.officials['officials-list'].push(officialData);
+                    this.logActivity(`Official added: "${officialData.name}"`, 'success');
+                    this.showAlert('Official added successfully!', 'success');
+                }
+
+                this.scheduleAutoSave();
+                this.renderOfficialsTable();
+                
+                // Reset form
+                document.getElementById('official-form').reset();
+                document.getElementById('official-edit-id').value = '';
+                document.getElementById('official-submit-btn').innerHTML = '<i class="fas fa-plus-circle"></i> Add Official';
+                document.getElementById('official-cancel-edit').style.display = 'none';
+                
+                // Switch to existing officials tab if we were editing
+                if (isEditing) {
+                    this.switchOfficialTab('existing');
+                }
+            });
+
+            // Committee Form - Updated to handle both add and edit
+            document.getElementById('committee-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const editId = document.getElementById('committee-edit-id').value;
+                const isEditing = editId !== '';
+                
+                const committeeData = {
+                    id: isEditing ? parseInt(editId) : (this.currentData.committees['committees-list'].length > 0 ? Math.max(...this.currentData.committees['committees-list'].map(c => c.id)) + 1 : 1),
+                    title: document.getElementById('committee-title').value,
+                    members: document.getElementById('committee-members').value
+                };
+
+                if (isEditing) {
+                    // Update existing committee
+                    const index = this.currentData.committees['committees-list'].findIndex(c => c.id == editId);
+                    if (index !== -1) {
+                        this.currentData.committees['committees-list'][index] = committeeData;
+                    }
+                    this.logActivity(`Committee updated: "${committeeData.title}"`, 'success');
+                    this.showAlert('Committee updated successfully!', 'success');
+                } else {
+                    // Add new committee
+                    this.currentData.committees['committees-list'].push(committeeData);
+                    this.logActivity(`Committee added: "${committeeData.title}"`, 'success');
+                    this.showAlert('Committee added successfully!', 'success');
+                }
+
+                this.scheduleAutoSave();
+                this.renderCommitteesTable();
+                
+                // Reset form
+                document.getElementById('committee-form').reset();
+                document.getElementById('committee-edit-id').value = '';
+                document.getElementById('committee-submit-btn').innerHTML = '<i class="fas fa-plus-circle"></i> Add Committee';
+                document.getElementById('committee-cancel-edit').style.display = 'none';
+                
+                if (isEditing) {
+                    this.switchCommitteeTab('existing');
+                }
+            });
+
+            // Document Form - Updated to handle both add and edit
+            document.getElementById('document-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const editId = document.getElementById('document-edit-id').value;
+                const isEditing = editId !== '';
+                
+                const documentData = {
+                    id: isEditing ? parseInt(editId) : (this.currentData.documents['documents-list'].length > 0 ? Math.max(...this.currentData.documents['documents-list'].map(d => d.id)) + 1 : 1),
+                    title: document.getElementById('document-title').value,
+                    description: document.getElementById('document-description').value,
+                    requirements: document.getElementById('document-requirements').value,
+                    fee: document.getElementById('document-fee').value
+                };
+
+                if (isEditing) {
+                    // Update existing document
+                    const index = this.currentData.documents['documents-list'].findIndex(d => d.id == editId);
+                    if (index !== -1) {
+                        this.currentData.documents['documents-list'][index] = documentData;
+                    }
+                    this.logActivity(`Document updated: "${documentData.title}"`, 'success');
+                    this.showAlert('Document updated successfully!', 'success');
+                } else {
+                    // Add new document
+                    this.currentData.documents['documents-list'].push(documentData);
+                    this.logActivity(`Document added: "${documentData.title}"`, 'success');
+                    this.showAlert('Document added successfully!', 'success');
+                }
+
+                this.scheduleAutoSave();
+                this.renderDocumentsTable();
+                
+                // Reset form
+                document.getElementById('document-form').reset();
+                document.getElementById('document-edit-id').value = '';
+                document.getElementById('document-submit-btn').innerHTML = '<i class="fas fa-plus-circle"></i> Add Document';
+                document.getElementById('document-cancel-edit').style.display = 'none';
+                
+                if (isEditing) {
+                    this.switchDocumentTab('existing');
+                }
+            });
+
+            // Location Form
+            document.getElementById('location-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.currentData.location['location-title'] = document.getElementById('location-title').value;
+                this.currentData.location['location-subtitle'] = document.getElementById('location-subtitle').value;
+                this.currentData.location['map-description'] = document.getElementById('map-description').value;
+                this.currentData.location['map-address'] = document.getElementById('map-address').value;
+                this.scheduleAutoSave();
+                this.showAlert('Location section updated successfully!', 'success');
+                this.logActivity('Location section updated', 'success');
+            });
+
+            // Contact Form
+            document.getElementById('contact-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.currentData.contact['contact-title'] = document.getElementById('contact-title').value;
+                this.currentData.contact['contact-location-address'] = document.getElementById('contact-location-address').value;
+                this.currentData.contact['contact-email-address'] = document.getElementById('contact-email-address').value;
+                this.currentData.contact['contact-phone-number'] = document.getElementById('contact-phone-number').value;
+                this.currentData.contact['map-link-text'] = document.getElementById('map-link-text').value;
+                this.scheduleAutoSave();
+                this.showAlert('Contact information updated successfully!', 'success');
+                this.logActivity('Contact information updated', 'success');
+            });
+
+            // Footer Form
+            document.getElementById('footer-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.currentData.footer['footer-title'] = document.getElementById('footer-title').value;
+                this.currentData.footer['footer-description'] = document.getElementById('footer-description').value;
+                this.currentData.footer.socialMedia.facebook = document.getElementById('facebook-url').value;
+                this.currentData.footer.socialMedia.email = 'mailto:' + document.getElementById('email-address').value;
+                this.currentData.footer['contact-info'] = document.getElementById('contact-info').value;
+                this.currentData.footer['copyright-text'] = document.getElementById('copyright-text').value;
+                this.scheduleAutoSave();
+                this.showAlert('Footer updated successfully!', 'success');
+                this.logActivity('Footer updated', 'success');
+            });
+
+            // Cancel Edit buttons
+            document.getElementById('official-cancel-edit').addEventListener('click', () => {
+                document.getElementById('official-form').reset();
+                document.getElementById('official-edit-id').value = '';
+                document.getElementById('official-submit-btn').innerHTML = '<i class="fas fa-plus-circle"></i> Add Official';
+                document.getElementById('official-cancel-edit').style.display = 'none';
+            });
+
+            document.getElementById('committee-cancel-edit').addEventListener('click', () => {
+                document.getElementById('committee-form').reset();
+                document.getElementById('committee-edit-id').value = '';
+                document.getElementById('committee-submit-btn').innerHTML = '<i class="fas fa-plus-circle"></i> Add Committee';
+                document.getElementById('committee-cancel-edit').style.display = 'none';
+            });
+
+            document.getElementById('document-cancel-edit').addEventListener('click', () => {
+                document.getElementById('document-form').reset();
+                document.getElementById('document-edit-id').value = '';
+                document.getElementById('document-submit-btn').innerHTML = '<i class="fas fa-plus-circle"></i> Add Document';
+                document.getElementById('document-cancel-edit').style.display = 'none';
+            });
+        }
+
+        switchTab(tabId) {
+            // Update sidebar
+            document.querySelectorAll('.sidebar-menu a').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        updateQuickGuide(tabId) {
+            // Hide all guide sections
+            document.querySelectorAll('.guide-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show the guide for the active tab
+            const guideId = `${tabId}-guide`;
+            const guideSection = document.getElementById(guideId);
+            if (guideSection) {
+                guideSection.style.display = 'block';
+            }
+        }
+
+        switchOfficialTab(tab) {
+            document.querySelectorAll('[data-official-tab]').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-official-tab="${tab}"]`).classList.add('active');
+
+            document.querySelectorAll('#officials .tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(tab === 'existing' ? 'existing-officials' : 'add-official').classList.add('active');
+        }
+
+        switchCommitteeTab(tab) {
+            document.querySelectorAll('[data-committee-tab]').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-committee-tab="${tab}"]`).classList.add('active');
+
+            document.querySelectorAll('#committees .tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(tab === 'existing' ? 'existing-committees' : 'add-committee').classList.add('active');
+        }
+
+        switchDocumentTab(tab) {
+            document.querySelectorAll('[data-document-tab]').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-document-tab="${tab}"]`).classList.add('active');
+
+            document.querySelectorAll('#documents .tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(tab === 'existing' ? 'existing-documents' : 'add-document').classList.add('active');
+        }
+
+        updateDashboard() {
+            if (!this.currentData) return;
+            
+            document.getElementById('total-officials').textContent = this.currentData.officials?.['officials-list']?.length || 0;
+            document.getElementById('total-committees').textContent = this.currentData.committees?.['committees-list']?.length || 0;
+            document.getElementById('total-documents').textContent = this.currentData.documents?.['documents-list']?.length || 0;
+            document.getElementById('system-status').textContent = 'OK';
+        }
+
+        updateSaveStatus() {
+            const statusElement = document.getElementById('save-status');
+            if (statusElement) {
+                const status = this.autoSaveEnabled ? 'Auto-save: ON' : 'Auto-save: OFF';
+                statusElement.textContent = status;
+            }
+        }
+
+        renderOfficialsTable() {
+            const tbody = document.getElementById('officials-table-body');
+            tbody.innerHTML = '';
+
+            if (!this.currentData.officials['officials-list'] || this.currentData.officials['officials-list'].length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--gray); padding: 30px;">No officials yet. Add your first official!</td></tr>`;
+                return;
+            }
+
+            this.currentData.officials['officials-list'].forEach((official, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            ${official.avatar ? `<img src="${official.avatar}" alt="${official.name}" class="avatar-preview" style="width: 50px; height: 50px;">` : '<div style="width: 50px; height: 50px; background: var(--gray-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gray);"><i class="fas fa-user"></i></div>'}
+                        </div>
+                    </td>
+                    <td><strong>${official.name}</strong></td>
+                    <td>${official.position}</td>
+                    <td>${official.contact}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary btn-sm edit-official" data-id="${official.id}">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-danger btn-sm delete-official" data-id="${official.id}">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // Add event listeners
+            document.querySelectorAll('.delete-official').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('button').getAttribute('data-id'));
+                    this.deleteOfficial(id);
+                });
+            });
+
+            document.querySelectorAll('.edit-official').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('button').getAttribute('data-id'));
+                    this.editOfficial(id);
+                });
+            });
+        }
+
+        renderCommitteesTable() {
+            const tbody = document.getElementById('committees-table-body');
+            tbody.innerHTML = '';
+
+            if (!this.currentData.committees['committees-list'] || this.currentData.committees['committees-list'].length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--gray); padding: 30px;">No committees yet. Add your first committee!</td></tr>`;
+                return;
+            }
+
+            this.currentData.committees['committees-list'].forEach((committee, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${committee.title}</strong></td>
+                    <td>${committee.members ? committee.members.split('\n').slice(0, 2).join(', ') + (committee.members.split('\n').length > 2 ? '...' : '') : 'No members'}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary btn-sm edit-committee" data-id="${committee.id}">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-danger btn-sm delete-committee" data-id="${committee.id}">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            document.querySelectorAll('.delete-committee').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('button').getAttribute('data-id'));
+                    this.deleteCommittee(id);
+                });
+            });
+
+            document.querySelectorAll('.edit-committee').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('button').getAttribute('data-id'));
+                    this.editCommittee(id);
+                });
+            });
+        }
+
+        renderDocumentsTable() {
+            const tbody = document.getElementById('documents-table-body');
+            tbody.innerHTML = '';
+
+            if (!this.currentData.documents['documents-list'] || this.currentData.documents['documents-list'].length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--gray); padding: 30px;">No documents yet. Add your first document!</td></tr>`;
+                return;
+            }
+
+            this.currentData.documents['documents-list'].forEach((document, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${document.title}</strong></td>
+                    <td>${document.description ? document.description.substring(0, 50) + (document.description.length > 50 ? '...' : '') : 'No description'}</td>
+                    <td>${document.requirements ? document.requirements.split('\n').length + ' requirements' : 'No requirements'}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary btn-sm edit-document" data-id="${document.id}">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-danger btn-sm delete-document" data-id="${document.id}">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            document.querySelectorAll('.delete-document').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('button').getAttribute('data-id'));
+                    this.deleteDocument(id);
+                });
+            });
+
+            document.querySelectorAll('.edit-document').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('button').getAttribute('data-id'));
+                    this.editDocument(id);
+                });
+            });
+        }
+
+        // Edit Functions
+        editOfficial(id) {
+            const official = this.currentData.officials['officials-list'].find(o => o.id === id);
+            
+            if (!official) return;
+            
+            // Switch to Add Official tab and populate form
+            this.switchOfficialTab('add');
+            
+            // Populate form with existing data
+            document.getElementById('official-edit-id').value = official.id;
+            document.getElementById('official-name').value = official.name;
+            document.getElementById('official-position').value = official.position;
+            document.getElementById('official-contact').value = official.contact;
+            document.getElementById('official-avatar').value = official.avatar;
+            
+            // Update button text
+            document.getElementById('official-submit-btn').innerHTML = '<i class="fas fa-save"></i> Update Official';
+            document.getElementById('official-cancel-edit').style.display = 'inline-block';
+            
+            // Update image preview
+            this.updateImagePreview('official-avatar-preview', official.avatar);
+            
+            this.logActivity(`Editing official: "${official.name}"`, 'info');
+        }
+
+        editCommittee(id) {
+            const committee = this.currentData.committees['committees-list'].find(c => c.id === id);
+            
+            if (!committee) return;
+            
+            // Switch to Add Committee tab and populate form
+            this.switchCommitteeTab('add');
+            
+            // Populate form with existing data
+            document.getElementById('committee-edit-id').value = committee.id;
+            document.getElementById('committee-title').value = committee.title;
+            document.getElementById('committee-members').value = committee.members;
+            
+            // Update button text
+            document.getElementById('committee-submit-btn').innerHTML = '<i class="fas fa-save"></i> Update Committee';
+            document.getElementById('committee-cancel-edit').style.display = 'inline-block';
+            
+            this.logActivity(`Editing committee: "${committee.title}"`, 'info');
+        }
+
+        editDocument(id) {
+            const document = this.currentData.documents['documents-list'].find(d => d.id === id);
+            
+            if (!document) return;
+            
+            // Switch to Add Document tab and populate form
+            this.switchDocumentTab('add');
+            
+            // Populate form with existing data
+            document.getElementById('document-edit-id').value = document.id;
+            document.getElementById('document-title').value = document.title;
+            document.getElementById('document-description').value = document.description;
+            document.getElementById('document-requirements').value = document.requirements;
+            document.getElementById('document-fee').value = document.fee;
+            
+            // Update button text
+            document.getElementById('document-submit-btn').innerHTML = '<i class="fas fa-save"></i> Update Document';
+            document.getElementById('document-cancel-edit').style.display = 'inline-block';
+            
+            this.logActivity(`Editing document: "${document.title}"`, 'info');
+        }
+
+        deleteOfficial(id) {
+            if (confirm('Are you sure you want to delete this official?')) {
+                this.currentData.officials['officials-list'] = this.currentData.officials['officials-list'].filter(o => o.id !== id);
+                
+                this.scheduleAutoSave();
+                this.renderOfficialsTable();
+                this.logActivity(`Official deleted`, 'error');
+                this.showAlert('Official deleted successfully', 'success');
+            }
+        }
+
+        deleteCommittee(id) {
+            if (confirm('Are you sure you want to delete this committee?')) {
+                this.currentData.committees['committees-list'] = this.currentData.committees['committees-list'].filter(c => c.id !== id);
+                
+                this.scheduleAutoSave();
+                this.renderCommitteesTable();
+                this.logActivity(`Committee deleted`, 'error');
+                this.showAlert('Committee deleted successfully', 'success');
+            }
+        }
+
+        deleteDocument(id) {
+            if (confirm('Are you sure you want to delete this document?')) {
+                this.currentData.documents['documents-list'] = this.currentData.documents['documents-list'].filter(d => d.id !== id);
+                
+                this.scheduleAutoSave();
+                this.renderDocumentsTable();
+                this.logActivity(`Document deleted`, 'error');
+                this.showAlert('Document deleted successfully', 'success');
+            }
+        }
+
+        updateImagePreview(previewId, url) {
+            const preview = document.getElementById(previewId);
+            if (url) {
+                preview.src = url;
+                preview.classList.add('visible');
+            } else {
+                preview.classList.remove('visible');
+            }
+        }
+
+        exportData() {
+            const dataStr = JSON.stringify(this.currentData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `about-us-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            this.logActivity('Data exported successfully', 'success');
+            this.showAlert('Data exported successfully!', 'success');
+        }
+
+        showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `<strong><i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i> ${message}</strong>`;
+            
+            const currentTab = document.querySelector('.tab-content.active');
+            currentTab.insertBefore(alert, currentTab.firstChild);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        logActivity(message, type) {
+            const activity = {
+                timestamp: new Date().toLocaleTimeString(),
+                message: message,
+                type: type
+            };
+            this.activityLog.unshift(activity);
+            
+            // Keep only last 10 activities
+            if (this.activityLog.length > 10) {
+                this.activityLog.pop();
+            }
+            
+            this.updateActivityLog();
+        }
+
+        updateActivityLog() {
+            const container = document.getElementById('recent-activity');
+            if (!container) return;
+
+            if (this.activityLog.length === 0) {
+                container.innerHTML = `<p style="color: var(--gray); text-align: center; padding: 20px;"><i class="fas fa-clock"></i> No recent activity</p>`;
+                return;
+            }
+
+            container.innerHTML = this.activityLog.map(activity => `
+                <div style="padding: 10px 15px; border-left: 3px solid ${
+                    activity.type === 'success' ? 'var(--success)' : 
+                    activity.type === 'error' ? 'var(--error)' : 'var(--warning)'
+                }; margin-bottom: 10px; background: var(--gray-light); border-radius: 0 var(--radius) var(--radius) 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 600;">${activity.message}</span>
+                        <small style="color: var(--gray);">${activity.timestamp}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+
+    // Initialize the admin panel when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        window.aboutUsAdminPanel = new AboutUsAdminPanel();
+    });
+</script>
+</body>
+</html>

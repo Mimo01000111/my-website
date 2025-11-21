@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay 118 Online System</title>
+    <meta name="description" content="Barangay 118 Online System - Community Services and Management">
+    <meta name="keywords" content="barangay, government, services, community, online system">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --light: #ffffff;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --gray-light: #f1f5f9;
+            --border: #cbd5e1;
+            --error: #dc2626;
+            --error-light: #fef2f2;
+            --success: #16a34a;
+            --success-light: #f0fdf4;
+            --warning: #d97706;
+            --accent: #f59e0b;
+            --accent-light: #fef3c7;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 6px 8px -1px rgba(0, 0, 0, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header - Mobile Optimized */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            font-size: 30px;
+        }
+
+        .logo h1 {
+            font-size: 18px;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: var(--radius);
+            transition: 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            border-radius: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #f0f7ff;
+        }
+
+        /* Hero Section - Mobile Optimized */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 35px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            max-width: 100%;
+            margin: 0 auto;
+            opacity: 0.8;
+            padding: 0 10px;
+        }
+
+        /* Barangay Welcome Section - Mobile Optimized */
+        .barangay-welcome {
+            height: 60vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .welcome-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        .welcome-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        .welcome-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            padding: 10px;
+        }
+
+        .welcome-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .barangay-logo {
+            width: 100px;
+            height: 100px;
+            margin: 20px auto 0;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            border: 4px solid var(--primary);
+            overflow: hidden;
+        }
+
+        .barangay-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* News Section - Mobile Optimized */
+        .barangay-news {
+            padding: 50px 0;
+            background-color: var(--light);
+        }
+
+        .news-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 15px;
+        }
+
+        .news-header h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .news-subtitle {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
+        .news-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .featured-news {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .featured-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            height: fit-content;
+        }
+
+        .featured-image-container {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .featured-content {
+            padding: 20px;
+        }
+
+        .featured-date {
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .featured-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .featured-excerpt {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .featured-read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            transition: gap 0.3s ease;
+        }
+
+        /* News List Container - Mobile Optimized */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            height: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .news-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
+            background: var(--gray-light);
+        }
+
+        .news-list-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .news-list-view-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .news-list-items {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 500px;
+            padding: 0;
+        }
+
+        .news-item {
+            background: white;
+            padding: 15px 20px;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: auto;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-item-image-container {
+            width: 100%;
+            position: relative;
+        }
+
+        .news-item-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .news-item-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .news-item-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .news-item-date {
+            color: var(--primary);
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .news-item-title {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .news-item-excerpt {
+            color: var(--gray);
+            font-size: 0.8rem;
+            line-height: 1.4;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-item-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+            font-size: 0.7rem;
+        }
+
+        .news-item-read-more {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .news-item-read-time {
+            background: var(--gray-light);
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+
+        /* Events Section - Mobile Optimized */
+        .events {
+            padding: 50px 0;
+            background-color: white;
+            min-height: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .events-subtext-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding: 0 5px;
+            opacity: 0.8;
+        }
+
+        .events-right-note {
+            font-size: 12px;
+            color: #9ca3af;
+            font-weight: 400;
+            white-space: nowrap;
+        }   
+
+        .events-left-note {
+            font-size: 12px;
+            color: #9ca3af;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .events-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+        }
+
+        .calendar-section {
+            width: 100%;
+        }
+
+        .calendar {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+            min-height: 400px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .calendar-nav button {
+            background: var(--primary);
+            border: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+        }
+
+        #calendar-month {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 0;
+            text-align: center;
+            flex: 1;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 6px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            max-width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--gray-light);
+            border-radius: 8px;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .calendar-date {
+            text-align: center;
+            padding: 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            border: 2px solid transparent;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1;
+            min-height: 35px;
+            color: var(--dark);
+            font-weight: 600;
+            background-color: var(--gray-light);
+            z-index: 1;
+        }
+
+        .calendar-date.event {
+            background-color: rgba(37, 99, 235, 0.15);
+            border: 2px solid var(--primary-light);
+            font-weight: 700;
+            color: var(--primary-dark);
+            z-index: 2;
+        }
+
+        .calendar-date.today {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            font-weight: 700;
+            border-color: var(--primary-dark);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            color: white !important;
+            position: relative;
+            z-index: 4;
+        }
+
+        .calendar-date.other-month {
+            color: var(--gray);
+            opacity: 0.5;
+            background-color: rgba(100, 116, 139, 0.1);
+        }
+
+        .events-section {
+            width: 100%;
+        }
+
+        .event-list {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+            min-height: 400px;
+        }
+
+        .event-list-title {
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 1.3rem;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary);
+            font-weight: 700;
+        }
+
+        .events-container-inner {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .event-item {
+            background: linear-gradient(135deg, white, var(--gray-light));
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border-left: 6px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .event-date {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 60px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-date .day {
+            font-size: 1.2rem;
+            font-weight: 800;
+            line-height: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-date .month {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .event-title {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            color: var(--dark);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .event-description {
+            color: var(--gray);
+            font-size: 0.8rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin: 4px 0 8px;
+        }
+
+        .event-time, .event-location {
+            font-size: 0.75rem;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        /* Emergency Section - Mobile Optimized */
+        .emergency {
+            padding: 50px 0;
+            background-color: var(--gray-light);
+        }
+
+        .emergency-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .emergency-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--primary);
+        }
+
+        .emergency-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .emergency-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .emergency-card p {
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .emergency-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Footer - Mobile Optimized */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 25px 0 5px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .footer-column h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: white;
+            position: relative;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon {
+            width: 18px;
+            height: 18px;
+            filter: brightness(0) invert(1);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 15px 0 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aab6c5;
+            font-size: 0.7rem;
+            margin-top: 15px;
+        }
+
+        /* Modal - Mobile Optimized */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 16px;
+            padding: 25px;
+            max-width: 100%;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 2px solid var(--primary-light);
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: all 0.3s;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .modal-event-date {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 10px 15px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.1));
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            justify-content: center;
+        }
+
+        .modal-event-title {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--dark);
+            font-weight: 700;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .modal-event-description {
+            color: var(--gray);
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .modal-event-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--gray-light), #f8fafc);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .modal-event-detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            justify-content: center;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid var(--gray-light);
+        }
+
+        /* News Modal - Mobile Optimized */
+        .news-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .news-modal-content {
+            background-color: white;
+            border-radius: 16px;
+            padding: 25px;
+            max-width: 100%;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        .news-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .news-modal-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            line-height: 1.3;
+            color: var(--dark);
+            margin: 0;
+            flex: 1;
+        }
+
+        .news-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: all 0.3s;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .news-modal-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gray-light);
+            text-align: center;
+        }
+
+        .news-modal-date {
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .news-modal-category {
+            background: var(--primary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .news-modal-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .news-modal-body {
+            line-height: 1.6;
+            color: var(--dark);
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .news-modal-footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 2px solid var(--gray-light);
+            text-align: center;
+        }
+
+        /* Additional Mobile Optimizations */
+        .nav-links a i {
+            font-size: 14px;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+        }
+
+        .hero {
+            padding: 30px 0;
+        }
+
+        .barangay-welcome {
+            height: 50vh;
+        }
+
+        .welcome-title {
+            font-size: 1.8rem;
+        }
+
+        .welcome-subtitle {
+            font-size: 1rem;
+        }
+
+        .barangay-logo {
+            width: 80px;
+            height: 80px;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+        }
+
+        .events {
+            padding: 40px 0;
+        }
+
+        .emergency {
+            padding: 40px 0;
+        }
+
+        footer {
+            padding: 20px 0 5px;
+            margin-top: 40px;
+        }
+
+        /* Hide elements not essential for mobile */
+        .featured-card:hover .featured-image,
+        .calendar:hover,
+        .event-list:hover,
+        .emergency-card:hover,
+        .event-item::before {
+            transform: none;
+        }
+
+        .featured-card:hover,
+        .calendar-date:hover,
+        .event-item:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Ensure touch-friendly elements */
+        .btn, 
+        .nav-links a, 
+        .calendar-date, 
+        .calendar-nav button,
+        .close-modal,
+        .news-modal-close {
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-date {
+            min-height: 40px;
+        }
+
+        /* Improve readability on small screens */
+        body {
+            font-size: 14px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.3;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* Optimize images for mobile */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo" id="home-logo" role="button" tabindex="0" aria-label="Barangay 118 Online System Home">
+                    <div class="logo-icon" aria-hidden="true"><i class="fas fa-city"></i></div>
+                    <h1 id="system-name">BARANGAY 118 ONLINE SYSTEM</h1>
+                </div>
+
+                <div class="nav-links" role="navigation" aria-label="Main navigation">
+                    <a href="PanelUserView.html" class="active" aria-label="Home page"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+                    <a href="CreateAnAccount.html" aria-current="page"><i class="fas fa-user-plus" aria-hidden="true"></i> Create Account</a>
+                    <a href="AboutUs.html" aria-label="About us page"><i class="fas fa-info-circle" aria-hidden="true"></i> About Us</a>
+                    <a href="LogIn.html" aria-label="Login page"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2 id="hero-title">Barangay 118 Online Management System</h2>
+            <p id="hero-description">
+                Empowering our community through smart and efficient digital services.
+            </p>
+        </div>
+    </section>
+
+    <!-- Barangay Welcome Section -->
+    <section class="barangay-welcome">
+        <div class="welcome-background" id="welcome-background"></div>
+        <div class="welcome-overlay"></div>
+        <div class="container">
+            <div class="welcome-content">
+                <h1 class="welcome-title" id="welcome-title">Welcome to Barangay 118</h1>
+                <p class="welcome-subtitle" id="welcome-subtitle">A Community of Unity and Progress</p>
+                <div class="barangay-logo">
+                    <img src="/Users/nuel/Downloads/481334777_643376224902499_8151656133818019156_n.jpg" alt="Barangay 118 Logo" id="barangay-logo-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Barangay News Section -->
+    <section class="barangay-news">
+        <div class="container">
+            <div class="news-header">
+                <h2 id="news-section-title">Latest Stories</h2>
+                <p class="news-subtitle" id="news-section-subtitle">Stay updated with the latest news and announcements from Barangay 118</p>
+            </div>
+            
+            <div class="news-grid" id="news-grid-container">
+                <!-- News content will be loaded dynamically -->
+                <div class="featured-news">
+                    <div class="featured-card">
+                        <div class="featured-image-container">
+                            <img src="https://via.placeholder.com/600x400" alt="Featured News" class="featured-image">
+                            <div class="featured-badge">Featured</div>
+                        </div>
+                        <div class="featured-content">
+                            <div class="featured-date"><i class="far fa-calendar"></i> November 15, 2025</div>
+                            <h3 class="featured-title">Community Clean-Up Drive Success</h3>
+                            <p class="featured-excerpt">Our recent community clean-up drive was a tremendous success with over 200 volunteers participating...</p>
+                            <a href="#" class="featured-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="news-list">
+                    <div class="news-list-header">
+                        <h3 class="news-list-title">Recent News</h3>
+                        <a href="#" class="news-list-view-all">View All</a>
+                    </div>
+                    <div class="news-list-items">
+                        <div class="news-item">
+                            <div class="news-item-image-container">
+                                <img src="https://via.placeholder.com/300x200" alt="News Item" class="news-item-image">
+                                <div class="news-item-badge">New</div>
+                            </div>
+                            <div class="news-item-content">
+                                <div class="news-item-date"><i class="far fa-calendar"></i> Nov 12, 2025</div>
+                                <h4 class="news-item-title">Barangay Health Center Renovation Completed</h4>
+                                <p class="news-item-excerpt">The newly renovated health center is now open with improved facilities...</p>
+                                <div class="news-item-meta">
+                                    <a href="#" class="news-item-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                    <span class="news-item-read-time">2 min read</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="news-item">
+                            <div class="news-item-image-container">
+                                <img src="https://via.placeholder.com/300x200" alt="News Item" class="news-item-image">
+                                <div class="news-item-badge">Update</div>
+                            </div>
+                            <div class="news-item-content">
+                                <div class="news-item-date"><i class="far fa-calendar"></i> Nov 10, 2025</div>
+                                <h4 class="news-item-title">New Barangay ID System Launch</h4>
+                                <p class="news-item-excerpt">The new digital Barangay ID system will be launched next month...</p>
+                                <div class="news-item-meta">
+                                    <a href="#" class="news-item-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                    <span class="news-item-read-time">3 min read</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Calendar -->
+    <section class="events">
+        <div class="container">
+            <h2 class="section-title" id="events-title">Barangay 118 Community Events</h2>
+            
+            <!-- Subtext row sa itaas ng calendar at events -->
+            <div class="events-subtext-row">
+                <span class="events-left-note">Calendar</span>
+                <span class="events-right-note">Check upcoming community events.</span>
+            </div>
+            
+            <div class="events-container">
+                <!-- Calendar on the left -->
+                <div class="calendar-section">
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <div class="calendar-nav">
+                                <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                                <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <h3 id="calendar-month">November 2025</h3>
+                        </div>
+                        <div class="calendar-grid" id="calendar-dates">
+                            <!-- Calendar dates will be loaded dynamically -->
+                            <div class="calendar-day">Sun</div>
+                            <div class="calendar-day">Mon</div>
+                            <div class="calendar-day">Tue</div>
+                            <div class="calendar-day">Wed</div>
+                            <div class="calendar-day">Thu</div>
+                            <div class="calendar-day">Fri</div>
+                            <div class="calendar-day">Sat</div>
+                            
+                            <!-- Sample calendar dates -->
+                            <div class="calendar-date other-month">27</div>
+                            <div class="calendar-date other-month">28</div>
+                            <div class="calendar-date other-month">29</div>
+                            <div class="calendar-date other-month">30</div>
+                            <div class="calendar-date">1</div>
+                            <div class="calendar-date">2</div>
+                            <div class="calendar-date">3</div>
+                            <div class="calendar-date">4</div>
+                            <div class="calendar-date">5</div>
+                            <div class="calendar-date event">6</div>
+                            <div class="calendar-date">7</div>
+                            <div class="calendar-date">8</div>
+                            <div class="calendar-date">9</div>
+                            <div class="calendar-date">10</div>
+                            <div class="calendar-date event">11</div>
+                            <div class="calendar-date">12</div>
+                            <div class="calendar-date">13</div>
+                            <div class="calendar-date">14</div>
+                            <div class="calendar-date today">15</div>
+                            <div class="calendar-date">16</div>
+                            <div class="calendar-date">17</div>
+                            <div class="calendar-date event">18</div>
+                            <div class="calendar-date">19</div>
+                            <div class="calendar-date">20</div>
+                            <div class="calendar-date">21</div>
+                            <div class="calendar-date">22</div>
+                            <div class="calendar-date">23</div>
+                            <div class="calendar-date event">24</div>
+                            <div class="calendar-date">25</div>
+                            <div class="calendar-date">26</div>
+                            <div class="calendar-date">27</div>
+                            <div class="calendar-date">28</div>
+                            <div class="calendar-date">29</div>
+                            <div class="calendar-date">30</div>
+                            <div class="calendar-date other-month">1</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Events on the right -->
+                <div class="events-section">
+                    <div class="event-list">
+                        <h3 class="event-list-title" id="upcoming-events-title">Upcoming Events</h3>
+                        <div class="events-container-inner" id="events-container">
+                            <!-- Events will be loaded dynamically -->
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="day">18</div>
+                                    <div class="month">Nov</div>
+                                </div>
+                                <div class="event-details">
+                                    <h4 class="event-title">Community General Assembly</h4>
+                                    <p class="event-description">Quarterly meeting to discuss barangay matters and community projects.</p>
+                                    <div class="event-time"><i class="far fa-clock"></i> 9:00 AM - 12:00 PM</div>
+                                    <div class="event-location"><i class="fas fa-map-marker-alt"></i> Barangay Hall</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="day">24</div>
+                                    <div class="month">Nov</div>
+                                </div>
+                                <div class="event-details">
+                                    <h4 class="event-title">Free Medical Check-up</h4>
+                                    <p class="event-description">Free health screening for all barangay residents.</p>
+                                    <div class="event-time"><i class="far fa-clock"></i> 8:00 AM - 4:00 PM</div>
+                                    <div class="event-location"><i class="fas fa-map-marker-alt"></i> Health Center</div>
+                                </div>
+                            </div>
+                            
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="day">30</div>
+                                    <div class="month">Nov</div>
+                                </div>
+                                <div class="event-details">
+                                    <h4 class="event-title">Youth Sports Festival</h4>
+                                    <p class="event-description">Annual sports competition for barangay youth.</p>
+                                    <div class="event-time"><i class="far fa-clock"></i> 7:00 AM - 5:00 PM</div>
+                                    <div class="event-location"><i class="fas fa-map-marker-alt"></i> Barangay Court</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Details Modal -->
+    <div class="modal" id="event-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Event Details</h3>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Event details will be loaded dynamically -->
+                <div class="modal-event-date">
+                    <i class="far fa-calendar"></i> November 18, 2025
+                </div>
+                <h4 class="modal-event-title">Community General Assembly</h4>
+                <p class="modal-event-description">Quarterly meeting to discuss barangay matters and community projects. All residents are encouraged to attend and participate in the discussions about our community's development.</p>
+                <div class="modal-event-details">
+                    <div class="modal-event-detail">
+                        <i class="far fa-clock"></i> 9:00 AM - 12:00 PM
+                    </div>
+                    <div class="modal-event-detail">
+                        <i class="fas fa-map-marker-alt"></i> Barangay Hall, Barangay 118
+                    </div>
+                    <div class="modal-event-detail">
+                        <i class="fas fa-users"></i> Open to all residents
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="close-modal-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Modal -->
+    <div class="news-modal" id="news-modal">
+        <div class="news-modal-content">
+            <div class="news-modal-header">
+                <h2 class="news-modal-title" id="news-modal-title">Community Clean-Up Drive Success</h2>
+                <button class="news-modal-close" id="news-modal-close">&times;</button>
+            </div>
+            <div class="news-modal-meta">
+                <div class="news-modal-date" id="news-modal-date"><i class="far fa-calendar"></i> November 15, 2025</div>
+                <div class="news-modal-category" id="news-modal-category">Community</div>
+            </div>
+            <img id="news-modal-image" src="https://via.placeholder.com/800x400" alt="Community Clean-Up" class="news-modal-image">
+            <div class="news-modal-body" id="news-modal-body">
+                <p>Our recent community clean-up drive was a tremendous success with over 200 volunteers participating in the event. The initiative aimed to beautify our barangay and promote environmental awareness among residents.</p>
+                <p>Participants gathered at the barangay hall at 7:00 AM and were divided into groups to cover different areas of our community. The clean-up focused on collecting plastic waste, clearing drainage systems, and planting ornamental plants in public spaces.</p>
+                <p>Barangay Captain Juan Dela Cruz expressed his gratitude to all volunteers: "This shows the true spirit of bayanihan in our community. When we work together, we can achieve great things for our barangay."</p>
+                <p>The event concluded with a simple merienda for all participants and a commitment to conduct similar activities quarterly.</p>
+            </div>
+            <div class="news-modal-footer">
+                <button class="btn btn-secondary" id="news-modal-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Contacts -->
+    <section class="emergency">
+        <div class="container">
+            <h2 class="section-title" id="emergency-title">Barangay 118 Emergency Contacts</h2>
+            <div class="events-subtext-row">
+                <span class="events-left-note">Contacts</span>
+                <span class="events-right-note">Reach out to our emergency services anytime.</span>
+            </div>
+            <div class="emergency-grid" id="emergency-contacts-container">
+                <!-- Emergency contacts will be loaded dynamically -->
+                <div class="emergency-card">
+                    <div class="emergency-icon">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <h3>Emergency Medical Services</h3>
+                    <p>For medical emergencies and ambulance service</p>
+                    <div class="emergency-number">(02) 8765-4321</div>
+                </div>
+                
+                <div class="emergency-card">
+                    <div class="emergency-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Barangay Security</h3>
+                    <p>For security concerns and emergencies</p>
+                    <div class="emergency-number">(02) 8765-4322</div>
+                </div>
+                
+                <div class="emergency-card">
+                    <div class="emergency-icon">
+                        <i class="fas fa-fire-extinguisher"></i>
+                    </div>
+                    <h3>Fire Department</h3>
+                    <p>For fire emergencies and rescue operations</p>
+                    <div class="emergency-number">(02) 8765-4323</div>
+                </div>
+                
+                <div class="emergency-card">
+                    <div class="emergency-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Barangay Health Center</h3>
+                    <p>For medical consultations and health concerns</p>
+                    <div class="emergency-number">(02) 8765-4324</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 id="footer-title">Barangay 118 Online System</h3>
+                    <p id="footer-description">Digital and efficient services for Barangay 118.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com" target="_blank" class="facebook" id="facebook-link">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="mailto:barangay118@gmail.com" class="gmail" id="email-link">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-5.318V11.73L12 16.64l-5.045-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul id="footer-contact-info">
+                        <!-- Contact info will be loaded dynamically -->
+                        <li><i class="fas fa-map-marker-alt"></i> Barangay 118, Tondo, Manila</li>
+                        <li><i class="fas fa-phone"></i> (02) 8765-4321</li>
+                        <li><i class="fas fa-envelope"></i> barangay118@gmail.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 5:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p id="copyright-text">&copy; 2025 Barangay 118 Online System. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Event modal functionality
+            const eventModal = document.getElementById('event-modal');
+            const closeModalBtn = document.getElementById('close-modal');
+            const closeModalBtn2 = document.getElementById('close-modal-btn');
+            
+            // News modal functionality
+            const newsModal = document.getElementById('news-modal');
+            const newsModalClose = document.getElementById('news-modal-close');
+            const newsModalCloseBtn = document.getElementById('news-modal-close-btn');
+            
+            // Sample event listeners for opening modals (you would connect these to your actual elements)
+            document.querySelectorAll('.event-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    eventModal.style.display = 'flex';
+                });
+            });
+            
+            document.querySelectorAll('.featured-read-more, .news-item-read-more').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    newsModal.style.display = 'flex';
+                });
+            });
+            
+            // Close modal functions
+            function closeEventModal() {
+                eventModal.style.display = 'none';
+            }
+            
+            function closeNewsModal() {
+                newsModal.style.display = 'none';
+            }
+            
+            closeModalBtn.addEventListener('click', closeEventModal);
+            closeModalBtn2.addEventListener('click', closeEventModal);
+            newsModalClose.addEventListener('click', closeNewsModal);
+            newsModalCloseBtn.addEventListener('click', closeNewsModal);
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === eventModal) {
+                    closeEventModal();
+                }
+                if (e.target === newsModal) {
+                    closeNewsModal();
+                }
+            });
+            
+            // Calendar navigation (simplified)
+            const prevMonthBtn = document.getElementById('prev-month');
+            const nextMonthBtn = document.getElementById('next-month');
+            const calendarMonth = document.getElementById('calendar-month');
+            
+            let currentDate = new Date(2025, 10, 15); // November 15, 2025
+            
+            function updateCalendar() {
+                const options = { year: 'numeric', month: 'long' };
+                calendarMonth.textContent = currentDate.toLocaleDateString('en-US', options);
+            }
+            
+            prevMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                updateCalendar();
+            });
+            
+            nextMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                updateCalendar();
+            });
+            
+            // Initialize
+            updateCalendar();
+        });
+    </script>
+</body>
+</html>

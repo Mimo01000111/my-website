@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Barangay 118 Online System</title>
+    <meta name="description" content="Register for your Barangay 118 account to access online services and government transactions">
+    <meta name="keywords" content="barangay, registration, online system, government services">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CreateAnAccoount.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo" id="home-logo" role="button" tabindex="0" aria-label="Barangay 118 Online System Home">
+                    <div class="logo-icon" aria-hidden="true"><i class="fas fa-city"></i></div>
+                    <h1 id="system-name">BARANGAY 118 ONLINE SYSTEM</h1>
+                </div>
+
+                <div class="nav-links" role="navigation" aria-label="Main navigation">
+                    <a href="index.html" aria-label="Home page"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+                    <a href="CreateAnAccount.html" class="active" aria-current="page"><i class="fas fa-user-plus" aria-hidden="true"></i> Create an Account</a>
+                    <a href="AboutUs.html" aria-label="About us page"><i class="fas fa-info-circle" aria-hidden="true"></i> About Us</a>
+                    <a href="LogIn.html" aria-label="Login page"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Register for Your Barangay Account</h1>
+            <p>Join our online platform to make barangay transactions faster and easier for you and your household. Complete your registration in just 5 simple steps.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="main-content" id="main-content">
+            <div class="form-container">
+                <!-- Form Header with Progress -->
+                <div class="form-header">
+                    <h2 class="form-title">CREATE YOUR BARANGAY ACCOUNT</h2>
+                    <div class="step-counter" aria-live="polite" aria-atomic="true">
+                        Step <span id="current-step-number">1</span> of 5
+                        <span class="step-description" id="step-description">- Head of Family Information</span>
+                    </div>
+                </div>
+                
+                <!-- Enhanced Progress Steps with Status -->
+                <div class="progress-steps" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" aria-label="Registration progress">
+                    <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
+                    <div class="step active" id="step1-indicator" role="button" tabindex="0">
+                        <div class="step-number" aria-hidden="true">1</div>
+                        <div class="step-label">Head of Family</div>
+                        <div class="step-status" aria-live="polite">Current</div>
+                    </div>
+                    <div class="step" id="step2-indicator" role="button" tabindex="0">
+                        <div class="step-number" aria-hidden="true">2</div>
+                        <div class="step-label">Household Info</div>
+                        <div class="step-status" aria-live="polite">Pending</div>
+                    </div>
+                    <div class="step" id="step3-indicator" role="button" tabindex="0">
+                        <div class="step-number" aria-hidden="true">3</div>
+                        <div class="step-label">Upload Documents</div>
+                        <div class="step-status" aria-live="polite">Pending</div>
+                    </div>
+                    <div class="step" id="step4-indicator" role="button" tabindex="0">
+                        <div class="step-number" aria-hidden="true">4</div>
+                        <div class="step-label">Face Verification</div>
+                        <div class="step-status" aria-live="polite">Pending</div>
+                    </div>
+                    <div class="step" id="step5-indicator" role="button" tabindex="0">
+                        <div class="step-number" aria-hidden="true">5</div>
+                        <div class="step-label">Complete</div>
+                        <div class="step-status" aria-live="polite">Pending</div>
+                    </div>
+                </div>
+                
+                <!-- Step 1: Head of the Family Information -->  
+                <div class="form-section active" id="step1" role="tabpanel" aria-labelledby="step1-indicator">
+                    <div class="section-header">
+                        <h3 class="section-title">Personal Information</h3>
+                        <p class="section-description">Please provide your basic personal details. All fields marked with <span class="required"></span> are required.</p>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lastName" class="required">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Enter your last name" required aria-required="true">
+                            <small class="note">Example: Dela Cruz</small>
+                            <div class="error-message" id="lastName-error" role="alert" aria-live="polite">Please enter your last name</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="firstName" class="required">First Name</label>
+                            <input type="text" id="firstName" placeholder="Enter your first name" required aria-required="true">
+                            <small class="note">Example: Juan</small>
+                            <div class="error-message" id="firstName-error" role="alert" aria-live="polite">Please enter your first name</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="middleName">Middle Name</label>
+                            <input type="text" id="middleName" placeholder="Type 'N/A' if not applicable" required aria-required="true " aria-describedby="middleName-help">
+                            <small class="note" id="middleName-help">Example: Santos or N/A</small>
+                            <div class="error-message" id="middleName-error" role="alert" aria-live="polite" style="display:none;">
+                                Please enter your middle name (or type N/A)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="extName">Extension Name</label>
+                            <select id="extName" onchange="toggleOtherExt(this)" aria-describedby="extName-help">
+                                <option value="" disabled selected>Select Extension Name</option>
+                                <option value="Jr.">Jr.</option>
+                                <option value="Sr.">Sr.</option>
+                                <option value="II">II</option>
+                                <option value="III">III</option>
+                                <option value="IV">IV</option>
+                                <option value="N/A">N/A</option>
+                                <option value="Other">Other</option>
+                            </select>
+
+                            <input type="text" id="otherExt" placeholder="Please specify your extension name" style="display:none; margin-top:8px;" aria-label="Other extension name">
+                            <div class="error-message" id="extName-error" role="alert" aria-live="polite" style="display:none;">
+                                Please select an extension name
+                            </div>
+                            <div class="error-message" id="otherExt-error" role="alert" aria-live="polite" style="display:none;">
+                                Please specify your extension name when 'Other' is selected
+                            </div>
+
+                            <small class="note" id="extName-help">Example: Jr., Sr., N/A, or enter other</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gender" class="required">Gender</label>
+                            <select id="gender" required aria-required="true">
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            <small class="note">Example: Male or Female</small>
+                            <div class="error-message" id="gender-error" role="alert" aria-live="polite">Please select your gender</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dateOfBirth" class="required">Date of Birth</label>
+                            <input type="date" id="dateOfBirth" required aria-required="true" aria-describedby="dob-help">
+                            <small class="note" id="dob-help">You must be at least 18 years old to register</small>
+                            <div class="error-message" id="dateOfBirth-error" role="alert" aria-live="polite">Please enter your date of birth</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address" class="required">Complete Address</label>
+                        <input type="text" id="address" placeholder="Enter your complete address including house number, street, and barangay" required aria-required="true">
+                        <small class="note">Example: 123 Mabini St., Brgy. San Roque, Caloocan City, Metro Manila</small>
+                        <div class="error-message" id="address-error" role="alert" aria-live="polite">Please enter your complete address</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="placeOfBirth" class="required">Place of Birth</label>
+                            <input type="text" id="placeOfBirth" placeholder="Enter city and province where you were born" required aria-required="true">
+                            <small class="note">Example: Caloocan City, Metro Manila, Philippines</small>
+                            <div class="error-message" id="placeOfBirth-error" role="alert" aria-live="polite">Please enter your place of birth</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="age" class="required">Age</label>
+                            <input type="number" id="age" placeholder="Enter your age" min="18" max="120" aria-describedby="age-help">
+                            <small class="note" id="age-help">Automatically calculated from your birth date</small>
+                            <div class="error-message" id="age-error" role="alert" aria-live="polite">Please enter your age</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone" class="required">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="+63 9XX-XXX-XXXX" required aria-required="true" pattern="^\+63\s?9\d{2}[- ]?\d{3}[- ]?\d{4}$">
+                            <small class="note">Example: +63 912-345-6789</small>
+                            <div class="error-message" id="phone-error" role="alert" aria-live="polite">Please enter a valid Philippine phone number starting with +63</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="civilStatus" class="required">Civil Status</label>
+                            <select id="civilStatus" required aria-required="true">
+                                <option value="" disabled selected>Select Civil Status</option>
+                                <option value="single">Single</option>
+                                <option value="married">Married</option>
+                                <option value="widowed">Widowed</option>
+                                <option value="separated">Separated</option>
+                                <option value="divorced">Divorced</option>
+                            </select>
+                            <small class="note">Example: Single</small>
+                            <div class="error-message" id="civilStatus-error" role="alert" aria-live="polite">Please select your civil status</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="citizenship" class="required">Citizenship</label>
+                            <select id="citizenship" required aria-required="true" onchange="toggleOtherInput(this, 'otherCitizenship')">
+                                <option value="" disabled selected>Select Citizenship</option>
+                                <option value="Filipino">Filipino</option>
+                                <option value="Dual Citizen">Dual Citizen</option>
+                                <option value="Foreigner">Foreigner</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <input type="text" id="otherCitizenship" placeholder="Please specify your citizenship" style="display:none; margin-top:8px;" aria-label="Other citizenship">
+                            <small class="note">Example: Filipino</small>
+                            <div class="error-message" id="citizenship-error" role="alert" aria-live="polite">Please select your citizenship</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="occupation" class="required">Occupation</label>
+                            <select id="occupation" required aria-required="true" onchange="toggleOtherInput(this, 'otherOccupation')">
+                                <option value="" disabled selected>Select Occupation</option>
+                                <option value="Student">Student</option>
+                                <option value="Teacher">Teacher</option>
+                                <option value="Engineer">Engineer</option>
+                                <option value="Nurse">Nurse</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Business Owner">Business Owner</option>
+                                <option value="Government Employee">Government Employee</option>
+                                <option value="Private Employee">Private Employee</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <input type="text" id="otherOccupation" placeholder="Please specify your occupation" style="display:none; margin-top:8px;" aria-label="Other occupation">
+                            <small class="note">Example: Student, Teacher, or specify if other</small>
+                            <div class="error-message" id="occupation-error" role="alert" aria-live="polite">Please select your occupation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">Special Categories (Check all that apply)</label>
+                        <div class="checkbox-group four-columns" role="group" aria-labelledby="special-categories-label">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="labor" name="indicateIf[]" value="Labor">
+                                <label for="labor">Labor</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="pwd" name="indicateIf[]" value="PWD">
+                                <label for="pwd">PWD</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="unemployed" name="indicateIf[]" value="Unemployed">
+                                <label for="unemployed">Unemployed</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="ofw" name="indicateIf[]" value="OFW">
+                                <label for="ofw">OFW</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="soloParent" name="indicateIf[]" value="Solo Parent">
+                                <label for="soloParent">Solo Parent</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="student" name="indicateIf[]" value="Student">
+                                <label for="student">Student</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="osy" name="indicateIf[]" value="OSY">
+                                <label for="osy">OSY</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="osc" name="indicateIf[]" value="OSC">
+                                <label for="osc">OSC</label>
+                            </div>
+                        </div>
+                        <small class="note">These categories help us provide appropriate services and assistance</small>
+                    </div>
+                
+                    <div class="section-header">
+                        <h3 class="section-title">Account Security</h3>
+                        <p class="section-description">Set up your login credentials and verify your email address.</p>
+                    </div>
+                    
+                    <div class="form-group email-otp-group">
+                        <label for="email" class="required">Email Address</label>
+                        <div class="otp-container">
+                            <input type="email" id="email" placeholder="Enter your active email address" required aria-required="true" aria-describedby="email-help">
+                            <button type="button" class="otp-btn" id="send-otp" aria-label="Send verification code to email">
+                                <i class="fas fa-paper-plane" aria-hidden="true"></i> Send OTP
+                            </button>
+                        </div>
+                        <small class="note" id="email-help">We'll send a 6-digit verification code to your email</small>
+                        <div class="error-message" id="email-error" role="alert" aria-live="polite">Please enter a valid email address</div>
+                        <div class="success-message" id="email-success" style="display:none;" role="alert" aria-live="polite">
+                            <i class="fas fa-check-circle" aria-hidden="true"></i> Valid email format.
+                        </div>
+                        <div class="otp-countdown" id="otp-countdown" style="display:none;" aria-live="polite">
+                            <i class="fas fa-clock" aria-hidden="true"></i> Resend available in: <span id="countdown-timer">60</span>s
+                        </div>
+                    </div>
+                    
+                    <div class="form-group otp-verification-group" id="otp-input-group" style="display:none;">
+                        <label for="otpInput" class="required">OTP Verification</label>
+                        <div class="otp-container">
+                            <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6" pattern="[0-9]{6}" aria-describedby="otp-help">
+                            <button type="button" class="otp-btn" id="verify-otp-btn" aria-label="Verify OTP code">
+                                <i class="fas fa-check-circle" aria-hidden="true"></i> Verify OTP
+                            </button>
+                        </div>
+                        <small class="note" id="otp-help">Enter the 6-digit code sent to your email</small>
+                        <div class="error-message" id="otp-error" role="alert" aria-live="polite">Incorrect OTP. Please try again.</div>
+                        <div class="success-message" id="otp-success" style="display:none;" role="alert" aria-live="polite">
+                            <i class="fas fa-check-circle" aria-hidden="true"></i> Email verified successfully!
+                        </div>
+                        <div class="otp-resend" id="otp-resend" style="display:none;">
+                            <button type="button" class="otp-btn" id="resend-otp" aria-label="Resend OTP code">
+                                <i class="fas fa-redo" aria-hidden="true"></i> Resend OTP
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password" class="required">Password</label>
+                            <div class="password-input-container">
+                                <input type="password" id="password" placeholder="Create a strong password" required aria-required="true" aria-describedby="password-requirements">
+                                <button type="button" class="password-toggle" id="togglePassword" aria-label="Show password">
+                                    <i class="fas fa-eye" aria-hidden="true"></i> Show
+                                </button>
+                            </div>
+                            <small class="note">Example: MyStrongP@ssword1</small>
+                            <div class="error-message" id="password-error" role="alert" aria-live="polite">
+                                Please enter a valid password that meets all requirements
+                            </div>
+
+                            <div class="password-requirements" id="password-requirements" role="region" aria-live="polite">
+                                <p class="requirements-title">Password must contain:</p>
+                                <ul>
+                                    <li id="req-length" class="invalid">At least <strong>10 characters</strong></li>
+                                    <li id="req-uppercase" class="invalid">At least <strong>1 uppercase letter</strong></li>
+                                    <li id="req-lowercase" class="invalid">At least <strong>1 lowercase letter</strong></li>
+                                    <li id="req-number" class="invalid">At least <strong>1 number</strong></li>
+                                    <li id="req-special" class="invalid">At least <strong>1 special character</strong> (e.g., @, _, >, <, ,, ?)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword" class="required">Confirm Password</label>
+                            <div class="password-input-container">
+                                <input type="password" id="confirmPassword" placeholder="Re-enter your password" required aria-required="true">
+                                <button type="button" class="password-toggle" id="toggleConfirmPassword" aria-label="Show password confirmation">
+                                    <i class="fas fa-eye" aria-hidden="true"></i> Show
+                                </button>
+                            </div>
+                            <small class="note">Re-type the password above (e.g., MyStrongP@ssword1)</small>
+                            <div class="error-message" id="confirmPassword-error" role="alert" aria-live="polite">
+                                Passwords do not match
+                            </div>
+                            <div class="password-match" id="password-match-message" role="alert" aria-live="polite">
+                                <i class="fas fa-check-circle" aria-hidden="true"></i> Passwords match!
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-prev" disabled aria-label="Previous step">
+                            <i class="fas fa-arrow-left" aria-hidden="true"></i> Previous
+                        </button>
+                        <button type="button" class="btn btn-next" id="show-terms-btn" aria-label="Continue to terms and conditions">
+                            Continue to Terms <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div> 
+                
+                <!-- Step 2: Household Information -->
+                <div class="form-section" id="step2" role="tabpanel" aria-labelledby="step2-indicator">
+                    <div class="section-header">
+                        <h3 class="section-title">Household Information</h3>
+                        <p class="section-description">Provide details about your household and residence.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="propertyUrl" class="required">Property Ownership URL</label>
+                        <input list="propertyUrls" type="text" id="propertyUrl" placeholder="Enter property URL from government registry" aria-describedby="propertyUrl-help">
+                        <datalist id="propertyUrls">
+                            <option value="https://propertyfinder.ph/house123">
+                            <option value="https://realestateph.com/lot56">
+                            <option value="https://landregistration.gov.ph/property789">
+                        </datalist>
+                        <small class="note" id="propertyUrl-help">Example: https://propertyfinder.ph/house123 or government registry link</small>
+                        <div class="error-message" id="propertyUrl-error" role="alert" aria-live="polite">Please enter a valid property URL</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="householdMembers" class="required">Number of Household Members</label>
+                            <input type="number" id="householdMembers" placeholder="Enter number of members" min="1" max="20" aria-describedby="householdMembers-help">
+                            <small class="note" id="householdMembers-help">Example: 5 members including yourself</small>
+                            <div class="error-message" id="householdMembers-error" role="alert" aria-live="polite">Please enter number of household members</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ownerName" class="required">Property Owner's Name</label>
+                            <input type="text" id="ownerName" placeholder="Enter property owner's full name">
+                            <small class="note">Example: Juan Dela Cruz (if different from yours)</small>
+                            <div class="error-message" id="ownerName-error" role="alert" aria-live="polite">Please enter owner's name</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="precinctNo">Precinct Number</label>
+                            <input type="text" id="precinctNo" placeholder="If applicable" aria-describedby="precinct-help">
+                            <small class="note" id="precinct-help">Example: 123A (for voting precinct)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="yearsInBarangay" class="required">Years Residing in Barangay</label>
+                            <input type="number" id="yearsInBarangay" placeholder="Enter number of years" min="0" max="100" aria-describedby="years-help">
+                            <small class="note" id="years-help">Example: 10 years (0 if less than 1 year)</small>
+                            <div class="error-message" id="yearsInBarangay-error" role="alert" aria-live="polite">Please enter number of years</div>
+                        </div>
+                    </div>
+
+                    <div class="section-header">
+                        <h3 class="section-title">Required Documents</h3>
+                        <p class="section-description">Upload clear copies of the required documents. Supported formats: PDF, JPG, PNG (Max 5MB each)</p>
+                    </div>
+
+                    <!-- Proof of Residence Upload -->
+                    <div class="preview-container">
+                        <div class="preview-title">
+                            <i class="fas fa-home" aria-hidden="true"></i> Proof of Residence
+                        </div>
+                        <div class="preview-placeholder" id="residencePreview" role="img" aria-label="Proof of residence preview placeholder">
+                            <i class="fas fa-file-invoice" style="font-size: 2rem; margin-bottom: 10px;" aria-hidden="true"></i>
+                            <div>Proof of residence preview will appear here</div>
+                        </div>
+
+                        <div class="file-preview-container" id="residenceFilePreviewContainer" style="display: none;">
+                            <img id="residenceImagePreview" class="image-preview" alt="Proof of residence document preview">
+                            <button type="button" class="delete-file-btn" id="deleteResidenceFile" aria-label="Remove proof of residence file">×</button>
+                        </div>
+
+                        <div class="file-upload-container">
+                            <label for="residenceFile" class="file-upload-label">
+                                <i class="fas fa-upload" aria-hidden="true"></i> Upload Proof of Residence (PDF, JPG, PNG)
+                            </label>
+                            <input type="file" id="residenceFile" class="file-upload-input" accept=".pdf,.jpg,.jpeg,.png" aria-describedby="residence-help">
+                            <small class="note" id="residence-help">Example: utility_bill_2025.png or lease_agreement.pdf</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-prev" aria-label="Go back to personal information">
+                            <i class="fas fa-arrow-left" aria-hidden="true"></i> Previous
+                        </button>
+                        <button type="button" class="btn btn-next" aria-label="Continue to document upload">
+                            Continue to Documents <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+         
+                <!-- Step 3: Upload your Valid ID's -->
+                <div class="form-section" id="step3" role="tabpanel" aria-labelledby="step3-indicator">
+                    <div class="section-header">
+                        <h3 class="section-title">Identity Verification</h3>
+                        <p class="section-description">Upload a valid government-issued ID for identity verification.</p>
+                    </div>
+                    
+                    <!-- ID Type -->
+                    <div class="form-group">
+                        <label for="idType" class="required">Select ID Type</label>
+                        <select id="idType" required aria-required="true" aria-describedby="idType-help">
+                            <option value="">Select ID Type</option>
+                            <option value="passport">Passport</option>
+                            <option value="driver">Driver's License</option>
+                            <option value="national">National ID (PhilID)</option>
+                            <option value="voter">Voter's ID</option>
+                            <option value="postal">Postal ID</option>
+                            <option value="student">Student ID</option>
+                            <option value="other">Other Government ID</option>
+                        </select>
+                        <small class="note" id="idType-help">Choose the primary government-issued ID you will upload</small>
+                        <div class="error-message" id="idType-error" role="alert" aria-live="polite">Please select an ID type</div>
+                    </div>
+                    
+                    <!-- Upload Front of ID -->
+                    <div class="form-group">
+                        <label for="idFront" class="required">Upload Front of ID</label>
+                        <div class="file-upload-container">
+                            <label for="idFront" class="file-upload-label">
+                                <i class="fas fa-upload" aria-hidden="true"></i> Click to upload the front of your valid ID
+                            </label>
+                            <input type="file" id="idFront" class="file-upload-input" accept=".jpg,.jpeg,.png,.pdf" required aria-required="true" aria-describedby="idFront-help">
+                        </div>
+                        <small class="note" id="idFront-help">Ensure the front side is clear and readable</small>
+                        <div class="error-message" id="idFront-error" role="alert" aria-live="polite">Please upload the front of your ID</div>
+                        <div class="file-preview-container" id="idFrontPreviewContainer" style="display: none;">
+                            <img id="idFrontImagePreview" class="image-preview" alt="Uploaded front ID preview">
+                            <button type="button" class="delete-file-btn" id="deleteIdFront" aria-label="Remove front ID file">×</button>
+                        </div>
+                    </div>
+
+                    <!-- Upload Back of ID -->
+                    <div class="form-group">
+                        <label for="idBack" class="required">Upload Back of ID</label>
+                        <div class="file-upload-container">
+                            <label for="idBack" class="file-upload-label">
+                                <i class="fas fa-upload" aria-hidden="true"></i> Click to upload the back of your valid ID
+                            </label>
+                            <input type="file" id="idBack" class="file-upload-input" accept=".jpg,.jpeg,.png,.pdf" required aria-required="true" aria-describedby="idBack-help">
+                        </div>
+                        <small class="note" id="idBack-help">Ensure the back side is clear and readable</small>
+                        <div class="error-message" id="idBack-error" role="alert" aria-live="polite">Please upload the back of your ID</div>
+                        <div class="file-preview-container" id="idBackPreviewContainer" style="display: none;">
+                            <img id="idBackImagePreview" class="image-preview" alt="Uploaded back ID preview">
+                            <button type="button" class="delete-file-btn" id="deleteIdBack" aria-label="Remove back ID file">×</button>
+                        </div>
+                    </div>
+
+                    <!-- User Reason -->
+                    <div class="form-group">
+                        <label for="userReason" class="required">Reason for creating an account</label>
+                        <textarea id="userReason" placeholder="Explain why you are creating this account" required aria-required="true" rows="3"></textarea>
+                        <div class="error-message" id="userReason-error" role="alert" aria-live="polite">
+                            Please provide a reason
+                        </div>
+                    </div>
+
+                    <!-- Verification Tips -->
+                    <div class="verification-tips">
+                        <h4><i class="fas fa-lightbulb" aria-hidden="true"></i> ID Upload Tips</h4>
+                        <ul class="tips-grid">
+                            <li>Ensure the ID is not expired</li>
+                            <li>Photo and details should be clear and readable</li>
+                            <li>File should be well-lit without glare</li>
+                            <li>Upload the front side of the ID</li>
+                            <li>Upload the back side of the ID</li>
+                            <li>File should not be blurry or edited</li>
+                            <li>Make sure all corners of the ID are visible</li>
+                            <li>Do not cover any part of the ID with fingers or objects</li>
+                            <li>Upload only one file per ID (do not merge multiple files)</li>
+                            <li>Ensure the file size does not exceed 5 MB</li>
+                        </ul>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-prev" aria-label="Go back to household information">
+                            <i class="fas fa-arrow-left" aria-hidden="true"></i> Previous
+                        </button>
+                        <button type="button" class="btn btn-next" aria-label="Continue to face verification">
+                            Continue to Face Verification <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Face Scan - Enhanced Version -->
+                <div class="form-section" id="step4" role="tabpanel" aria-labelledby="step4-indicator">
+                    <div class="section-header">
+                        <h3 class="section-title">Face Verification</h3>
+                        <p class="section-description">We need to capture your face from different angles to verify your identity against your ID.</p>
+                    </div>
+                    
+                    <div class="face-scan-container">
+                        <!-- Progress indicator for face capture steps -->
+                        <div class="face-scan-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Face capture progress">
+                            <div class="progress-circle completed" id="progress-front">
+                                <span class="sr-only">Front face - completed</span>
+                            </div>
+                            <div class="progress-connector completed" id="connector-1" aria-hidden="true"></div>
+                            <div class="progress-circle active" id="progress-left">
+                                <span class="sr-only">Left side - current</span>
+                            </div>
+                            <div class="progress-connector" id="connector-2" aria-hidden="true"></div>
+                            <div class="progress-circle" id="progress-right">
+                                <span class="sr-only">Right side - pending</span>
+                            </div>
+                            <div class="progress-connector" id="connector-3" aria-hidden="true"></div>
+                            <div class="progress-circle" id="progress-closed">
+                                <span class="sr-only">Closed eyes - pending</span>
+                            </div>
+                        </div>
+                        
+                        <div class="face-scan-instructions" id="face-instructions" role="status" aria-live="polite">
+                            Please look directly at the camera for the front face capture
+                        </div>
+                        
+                        <div class="webcam-container">
+                            <div class="face-capture-circle" role="img" aria-label="Face capture area">
+                                <video id="webcamVideo" class="webcam-video" autoplay playsinline aria-label="Live camera feed"></video>
+                                <canvas id="webcamCanvas" class="webcam-canvas" aria-hidden="true"></canvas>
+                                <img id="capturedImage" class="captured-image" alt="Captured face image">
+                            </div>
+                            
+                            <div class="face-scan-status" id="face-status" role="status" aria-live="polite">
+                                <i class="fas fa-sync-alt" aria-hidden="true"></i> Camera ready - Please start camera to begin
+                            </div>
+                            
+                            <div class="capture-controls">
+                                <button type="button" class="capture-btn" id="startWebcam" aria-label="Start camera for face capture">
+                                    <i class="fas fa-camera" aria-hidden="true"></i> Start Camera
+                                </button>
+                                <button type="button" class="capture-btn" id="captureImage" disabled aria-label="Capture current face image">
+                                    <i class="fas fa-circle" aria-hidden="true"></i> Capture Photo
+                                </button>
+                                <button type="button" class="capture-btn" id="retakeImage" style="display:none;" aria-label="Retake face capture">
+                                    <i class="fas fa-redo" aria-hidden="true"></i> Retake
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="face-capture-steps">
+                            <div class="capture-step active face-capture-step" id="step-front">
+                                <div class="step-indicator">1</div>
+                                <div class="step-title">Front Face</div>
+                                <div class="face-capture-preview-container">
+                                    <img id="frontFacePreview" class="face-capture-preview" alt="Front face capture preview">
+                                    <button type="button" class="retake-face-btn" data-face="front" aria-label="Retake front face photo">↺</button>
+                                </div>
+                                <button class="step-capture-btn center-capture-btn" id="capture-front" disabled aria-label="Capture front face">Capture Front</button>
+                            </div>
+                            
+                            <div class="capture-step face-capture-step" id="step-left">
+                                <div class="step-indicator">2</div>
+                                <div class="step-title">Left Side</div>
+                                <div class="face-capture-preview-container">
+                                    <img id="leftFacePreview" class="face-capture-preview" alt="Left side face capture preview">
+                                    <button type="button" class="retake-face-btn" data-face="left" aria-label="Retake left side photo">↺</button>
+                                </div>
+                                <button class="step-capture-btn center-capture-btn" id="capture-left" disabled aria-label="Capture left side face">Capture Left</button>
+                            </div>
+                            
+                            <div class="capture-step face-capture-step" id="step-right">
+                                <div class="step-indicator">3</div>
+                                <div class="step-title">Right Side</div>
+                                <div class="face-capture-preview-container">
+                                    <img id="rightFacePreview" class="face-capture-preview" alt="Right side face capture preview">
+                                    <button type="button" class="retake-face-btn" data-face="right" aria-label="Retake right side photo">↺</button>
+                                </div>
+                                <button class="step-capture-btn center-capture-btn" id="capture-right" disabled aria-label="Capture right side face">Capture Right</button>
+                            </div>
+                            
+                            <div class="capture-step face-capture-step" id="step-closed">
+                                <div class="step-indicator">4</div>
+                                <div class="step-title">Closed Eyes</div>
+                                <div class="face-capture-preview-container">
+                                    <img id="closedFacePreview" class="face-capture-preview" alt="Closed eyes face capture preview">
+                                    <button type="button" class="retake-face-btn" data-face="closed" aria-label="Retake closed eyes photo">↺</button>
+                                </div>
+                                <button class="step-capture-btn center-capture-btn" id="capture-closed" disabled aria-label="Capture closed eyes">Capture Closed</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="face-scan-tips">
+                        <h4><i class="fas fa-lightbulb" aria-hidden="true"></i> Face Scan Tips:</h4>
+                        <ul>
+                            <li>Make sure there is enough light around you, but avoid direct light on your face</li>
+                            <li>Remove accessories like glasses, hats, or large earrings</li>
+                            <li>Keep your face within the circular frame</li>
+                            <li>Follow the instructions for each capture angle</li>
+                            <li>For the closed eyes photo, gently close your eyes - don't squeeze them shut</li>
+                            <li>Ensure your face matches your ID photo</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="privacy-notice">
+                        <h4><i class="fas fa-shield-alt" aria-hidden="true"></i> Privacy Assurance</h4>
+                        <p>Your facial data is securely encrypted and used only for identity verification purposes. We do not store biometric data after verification is complete.</p>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-prev" aria-label="Go back to document upload">
+                            <i class="fas fa-arrow-left" aria-hidden="true"></i> Previous
+                        </button>
+                        <button type="button" class="btn btn-next" id="completeFaceScan" disabled aria-label="Complete face verification and proceed to review">
+                            Complete Verification <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 5: Success Page -->
+                <div class="form-section" id="step5" role="tabpanel" aria-labelledby="step5-indicator">
+                    <div class="success-container">
+                        <div class="success-checkmark" aria-hidden="true">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h2 class="form-title">Account Registration Submitted Successfully!</h2>
+
+                        <div class="control-number-container">
+                            <p class="control-label">Your Registration Control Number:</p>
+                            <div class="control-number" id="controlNumber" aria-label="Your registration control number"></div>
+                            <small class="note">Please save this number for future reference</small>
+                        </div>
+
+                        <p class="submission-message">
+                            Your account registration has been successfully submitted for review.
+                            Please allow <strong>1 to 4 business days</strong> for our admin to verify your information and process your account.
+                        </p>
+
+                        <div class="next-steps">
+                            <h4><i class="fas fa-list-alt" aria-hidden="true"></i> What Happens Next</h4>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-marker" aria-hidden="true"></div>
+                                    <div class="timeline-content">
+                                        <strong>Document Verification</strong>
+                                        <p>Our administrator will carefully review your submitted information and documents.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker" aria-hidden="true"></div>
+                                    <div class="timeline-content">
+                                        <strong>Email Notification</strong>
+                                        <p>You will receive an email notification once your account is approved or if additional information is needed.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker" aria-hidden="true"></div>
+                                    <div class="timeline-content">
+                                        <strong>Account Activation</strong>
+                                        <p>Once approved, you can log in using your registered email and password to access barangay services.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-support">
+                            <h4><i class="fas fa-headset" aria-hidden="true"></i> Need Assistance?</h4>
+                            <p>If you have any questions or need to update your application, please contact our support team:</p>
+                            <div class="contact-info">
+                                <p><i class="fas fa-phone" aria-hidden="true"></i> <strong>Phone:</strong> (02) 8123-4567</p>
+                                <p><i class="fas fa-envelope" aria-hidden="true"></i> <strong>Email:</strong> support@barangay118.gov.ph</p>
+                                <p><i class="fas fa-clock" aria-hidden="true"></i> <strong>Office Hours:</strong> Monday-Friday, 8:00 AM - 5:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-prev" aria-label="Go back to face verification">
+                                <i class="fas fa-arrow-left" aria-hidden="true"></i> Previous Step
+                            </button>
+                            <button type="button" class="btn btn-next" id="returnToHome" aria-label="Return to home page">
+                                <i class="fas fa-home" aria-hidden="true"></i> Return to Home
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="printConfirmation" aria-label="Print registration confirmation">
+                                <i class="fas fa-print" aria-hidden="true"></i> Print Confirmation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="info-sidebar">
+                <h3><i class="fas fa-clipboard-list" aria-hidden="true"></i> Registration Requirements</h3>
+                <p>To complete your registration, please ensure you have the following ready:</p>
+                
+                <section class="requirements-section">
+                    <h2>Requirements for Barangay 118 Account</h2>
+                    <div class="requirements-list">
+                        <div class="requirement-item">
+                            <i class="fas fa-id-card"></i>
+                            <div class="requirement-text">
+                                <strong>Valid Government ID:</strong> Passport, driver's license, national ID, etc.
+                            </div>
+                        </div>
+                        <div class="requirement-item">
+                            <i class="fas fa-file-contract"></i>
+                            <div class="requirement-text">
+                                <strong>Barangay Clearance:</strong> Issued within the last 3 months.
+                            </div>
+                        </div>
+                        <div class="requirement-item">
+                            <i class="fas fa-home"></i>
+                            <div class="requirement-text">
+                                <strong>Proof of Residence:</strong> Utility bills or lease agreement.
+                            </div>
+                        </div>
+                        <div class="requirement-item">
+                            <i class="fas fa-camera"></i>
+                            <div class="requirement-text">
+                                <strong>Recent Photos:</strong> For face verification process.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="card">
+                    <h4><i class="fas fa-star" aria-hidden="true"></i> Benefits of Registration</h4>
+                    <ul>
+                        <li>Access to online barangay services 24/7</li>
+                        <li>Request barangay documents online</li>
+                        <li>Receive important announcements and updates</li>
+                        <li>Participate in barangay activities and programs</li>
+                        <li>Access to government assistance programs</li>
+                        <li>Faster transaction processing</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4><i class="fas fa-road" aria-hidden="true"></i> Registration Process</h4>
+                    <ol>
+                        <li><strong>Personal Information</strong> - Basic details and account setup</li>
+                        <li><strong>Household Information</strong> - Family and residence details</li>
+                        <li><strong>Document Upload</strong> - Submit required identification</li>
+                        <li><strong>Face Verification</strong> - Biometric identity confirmation</li>
+                        <li><strong>Completion</strong> - Review and receive control number</li>
+                    </ol>
+                </div>
+                
+                <div class="card">
+                    <h4><i class="fas fa-question-circle" aria-hidden="true"></i> Need Help?</h4>
+                    <p>Our support team is here to assist you:</p>
+                    <div class="contact-details">
+                        <p><i class="fas fa-phone" aria-hidden="true"></i> <strong>Phone:</strong> (02) 8123-4567</p>
+                        <p><i class="fas fa-envelope" aria-hidden="true"></i> <strong>Email:</strong> info@barangay118.gov.ph</p>
+                        <p><i class="fas fa-clock" aria-hidden="true"></i> <strong>Office Hours:</strong> Monday-Friday, 8:00 AM - 5:00 PM</p>
+                        <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <strong>Address:</strong> Barangay 118 Hall, City Proper, Metro Manila</p>
+                    </div>
+                </div>
+
+                <div class="security-notice">
+                    <h4><i class="fas fa-shield-alt" aria-hidden="true"></i> Security Notice</h4>
+                    <p>Your information is protected with bank-level encryption. We never share your data with third parties without your consent.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Terms and Conditions Modal -->
+    <div class="modal" id="termsModal" role="dialog" aria-labelledby="termsModalTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="termsModalTitle">Terms and Conditions Agreement</h2>
+                <button class="close-modal" id="closeTermsModal" aria-label="Close terms and conditions">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            
+            <div class="terms-content">
+                <div class="terms-intro">
+                    <p><strong>Last Updated:</strong> January 1, 2025</p>
+                    <p>These Terms and Conditions ("Terms") govern your use of the Barangay 118 Online System website www.barangay118.gov.ph ("the Website") and the services provided therein.</p>
+                </div>
+                
+                <h2>1. Privacy and Data Protection</h2>
+                <p>Your privacy is important to us. By using the Website, you consent to the collection, use, and disclosure of your personal information as described in our Privacy Policy.</p>
+                
+                <h2>2. Collection of Personal Information</h2>
+                <p>In order to access certain features or services on the Website, you may be required to provide personal information such as your name, birthdate, address, identification documents, and biometric data for verification purposes.</p>
+                
+                <h2>3. Use of Personal Information</h2>
+                <p>The personal information we collect may be used for the following purposes:</p>
+                <ul>
+                    <li>To provide and maintain our barangay services</li>
+                    <li>To verify your identity and eligibility for barangay services</li>
+                    <li>To communicate with you about your account or transactions</li>
+                    <li>To send you important updates, announcements, and emergency alerts</li>
+                    <li>To improve our services and user experience</li>
+                    <li>To comply with legal obligations and government requirements</li>
+                </ul>
+                
+                <h2>4. Data Retention and Security</h2>
+                <p>We will retain your personal information for as long as necessary to fulfill the purposes outlined in these Terms, unless a longer retention period is required or permitted by law. We implement appropriate security measures to protect your personal information.</p>
+                
+                <h2>5. User Responsibilities</h2>
+                <p>As a user of the Website, you agree to:</p>
+                <ul>
+                    <li>Provide accurate and complete information during registration</li>
+                    <li>Keep your login credentials secure and confidential</li>
+                    <li>Notify us immediately of any unauthorized use of your account</li>
+                    <li>Use the Website in compliance with all applicable laws and regulations</li>
+                    <li>Not attempt to circumvent any security measures</li>
+                </ul>
+                
+                <h2>6. Service Availability</h2>
+                <p>We strive to maintain the availability of our services but do not guarantee uninterrupted access. We may perform maintenance and updates that temporarily affect service availability.</p>
+                
+                <h2>7. Limitation of Liability</h2>
+                <p>Barangay 118 shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the services.</p>
+                
+                <p class="terms-acceptance">By using the Website, you acknowledge that you have read, understood, and agree to be bound by these Terms and our Privacy Policy.</p>
+            </div>
+            
+            <div class="terms-options">
+                <div class="terms-option">
+                    <input type="radio" id="modal-decline" name="modal-terms" value="decline">
+                    <label for="modal-decline">
+                        <i class="fas fa-times" aria-hidden="true"></i> I Decline
+                    </label>
+                </div>
+                <div class="terms-option">
+                    <input type="radio" id="modal-accept" name="modal-terms" value="accept">
+                    <label for="modal-accept">
+                        <i class="fas fa-check" aria-hidden="true"></i> I Accept Terms & Conditions
+                    </label>
+                </div>
+            </div>
+            <div class="error-message" id="modal-terms-error" role="alert" aria-live="polite">You must accept the terms and conditions to proceed with registration</div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-prev" id="cancelTerms" aria-label="Cancel registration">
+                    <i class="fas fa-times" aria-hidden="true"></i> Cancel Registration
+                </button>
+                <button type="button" class="btn btn-next" id="confirmTerms" aria-label="Confirm acceptance and proceed">
+                    <i class="fas fa-check" aria-hidden="true"></i> Confirm & Proceed
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;" aria-live="polite" aria-label="Processing your request">
+        <div class="loading-spinner"></div>
+        <p>Processing your registration...</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 id="footer-title">Barangay 118 Online System</h3>
+                    <p id="footer-description">Digital and efficient services for Barangay 118.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com" target="_blank" class="facebook" id="facebook-link">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="mailto:barangay118@gmail.com" class="gmail" id="email-link">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-5.318V11.73L12 16.64l-5.045-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul id="footer-contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>402 2nd St, Grace Park East, Caloocan</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-pin" aria-hidden="true"></i>
+                            <span>Metro Manila, Philippines</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone" aria-hidden="true"></i>
+                            <span>(02) 8123-4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                            <span>info@barangay118.gov.ph</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock" aria-hidden="true"></i>
+                            <span>Mon-Fri: 8:00 AM - 5:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p id="copyright-text">&copy; 2025 Barangay 118 Online System. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <!-- Main JavaScript -->
+    <script src="CreateAnAccount.js"></script>
+</body>
+</html>

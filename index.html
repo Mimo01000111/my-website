@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay 118 Online System</title>
+    <meta name="description" content="Barangay 118 Online System - Community Services and Management">
+    <meta name="keywords" content="barangay, government, services, community, online system">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="PanelUserView.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo" id="home-logo" role="button" tabindex="0" aria-label="Barangay 118 Online System Home">
+                    <div class="logo-icon" aria-hidden="true"><i class="fas fa-city"></i></div>
+                    <h1 id="system-name">BARANGAY 118 ONLINE SYSTEM</h1>
+                </div>
+
+                <div class="nav-links" role="navigation" aria-label="Main navigation">
+                    <a href="PanelUserView.html" class="active" aria-label="Home page"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+                    <a href="CreateAnAccount.html" aria-current="page"><i class="fas fa-user-plus" aria-hidden="true"></i> Create an Account</a>
+                    <a href="AboutUs.html" aria-label="About us page"><i class="fas fa-info-circle" aria-hidden="true"></i> About Us</a>
+                    <a href="LogIn.html" aria-label="Login page"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2 id="hero-title">Barangay 118 Online Management System</h2>
+            <p id="hero-description">
+                Empowering our community through smart and efficient digital services.
+            </p>
+        </div>
+    </section>
+
+    <!-- Barangay Welcome Section -->
+    <section class="barangay-welcome">
+        <div class="welcome-background" id="welcome-background"></div>
+        <div class="welcome-overlay"></div>
+        <div class="container">
+            <div class="welcome-content">
+                <h1 class="welcome-title" id="welcome-title">Welcome to Barangay 118</h1>
+                <p class="welcome-subtitle" id="welcome-subtitle">A Community of Unity and Progress</p>
+                <div class="barangay-logo">
+                    <img src="/Users/nuel/Downloads/481334777_643376224902499_8151656133818019156_n.jpg" alt="Barangay 118 Logo" id="barangay-logo-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Barangay News Section -->
+    <section class="barangay-news">
+        <div class="container">
+            <div class="news-header">
+                <h2 id="news-section-title">Latest Stories</h2>
+                <p class="news-subtitle" id="news-section-subtitle">Stay updated with the latest news and announcements from Barangay 118</p>
+            </div>
+            
+            <div class="news-grid" id="news-grid-container">
+                <!-- News content will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Calendar -->
+    <section class="events">
+        <div class="container">
+            <h2 class="section-title" id="events-title">Barangay 118 Community Events Calendar</h2>
+            
+            <!-- Subtext row sa itaas ng calendar at events -->
+            <div class="events-subtext-row">
+                <span class="events-left-note">Calendar</span>
+                <span class="events-right-note">Check upcoming community events.</span>
+            </div>
+            
+            <div class="events-container">
+                <!-- Calendar on the left -->
+                <div class="calendar-section">
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <div class="calendar-nav">
+                                <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                                <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <h3 id="calendar-month">November 2025</h3>
+                        </div>
+                        <div class="calendar-grid" id="calendar-dates">
+                            <!-- Calendar dates will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Events on the right -->
+                <div class="events-section">
+                    <div class="event-list">
+                        <h3 class="event-list-title" id="upcoming-events-title">Upcoming Events</h3>
+                        <div class="events-container-inner" id="events-container">
+                            <!-- Events will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Details Modal -->
+    <div class="modal" id="event-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Event Details</h3>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Event details will be loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="close-modal-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Modal -->
+    <div class="news-modal" id="news-modal">
+        <div class="news-modal-content">
+            <div class="news-modal-header">
+                <h2 class="news-modal-title" id="news-modal-title">News Title</h2>
+                <button class="news-modal-close" id="news-modal-close">&times;</button>
+            </div>
+            <div class="news-modal-meta">
+                <div class="news-modal-date" id="news-modal-date"><i class="far fa-calendar"></i> Date</div>
+                <div class="news-modal-category" id="news-modal-category">Category</div>
+            </div>
+            <img id="news-modal-image" src="" alt="" class="news-modal-image">
+            <div class="news-modal-body" id="news-modal-body"></div>
+            <div class="news-modal-footer">
+                <button class="btn btn-secondary" id="news-modal-close-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Contacts -->
+    <section class="emergency">
+        <div class="container">
+            <h2 class="section-title" id="emergency-title">Barangay 118 Emergency Contacts</h2>
+            <div class="events-subtext-row">
+                <span class="events-left-note">Contacts</span>
+                <span class="events-right-note">Reach out to our emergency services anytime.</span>
+            </div>
+            <div class="emergency-grid" id="emergency-contacts-container">
+                <!-- Emergency contacts will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 id="footer-title">Barangay 118 Online System</h3>
+                    <p id="footer-description">Digital and efficient services for Barangay 118.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com" target="_blank" class="facebook" id="facebook-link">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="mailto:barangay118@gmail.com" class="gmail" id="email-link">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-5.318V11.73L12 16.64l-5.045-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul id="footer-contact-info">
+                        <!-- Contact info will be loaded dynamically -->
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p id="copyright-text">&copy; 2025 Barangay 118 Online System. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="PanelUserView.js" defer></script>
+</body>
+</html>
